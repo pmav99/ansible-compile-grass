@@ -10,5 +10,8 @@
         cache_valid_time: 600
       when: ansible_os_family == 'Debian'
 
+  vars:
+    gsi_builder_username: 'builder'
+
   roles:
     - role: pmav99.compile_grass
