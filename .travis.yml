@@ -4,12 +4,26 @@ language: python
 services:
   - docker
 
+env:
+  global:
+    - ROLE_NAME: compile_grass
+  matrix:
+    - MOLECULE_DISTRO: ubuntu1804
+
 before_install:
   - sudo apt-get -qq update
 
 install:
   - pip install molecule
   - pip install docker
+
+
+before_script:
+  # Use actual Ansible Galaxy role name for the project directory.
+  - cd ../
+  - ls -lah
+  - mv ansible-role-$ROLE_NAME pmav99.$ROLE_NAME
+  - cd pmav99.$ROLE_NAME
 
 script:
   - molecule test
