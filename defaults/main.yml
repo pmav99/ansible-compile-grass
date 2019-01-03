@@ -1,2 +1,54 @@
 ---
 # defaults file for compile_grass
+gsi_builder_username: ''
+gsi_builder_shell: '/bin/bash'
+gsi_builder_password: '$6$SjzEETi/JfTKV1$KgJ22MKMWOTez0Aq3e2pR0MwUJglnel/VHhxXuadGU.XmBARG/AjZ.Aw9c.VAPiW5yXiWButnOi4hMqjMKnGB1'
+
+### Directories
+gsi_build_dir: '/usr/local/src'
+
+### Program versions
+gsi_grass_branch: 'trunk'
+
+### GRASS configuration options
+gsi_blas_support: true
+gsi_bzip2_support: true
+gsi_cxx_support: true
+gsi_cairo_support: true
+gsi_fftw_support: true
+gsi_freetype_support: true
+gsi_gdal_support: true
+gsi_geos_support: true
+gsi_lapack_support: true
+gsi_liblas_support: true
+gsi_mysql_support: true
+gsi_netcdf_support: true
+gsi_nls_support: true
+gsi_odbc_support: true
+gsi_opencl_support: false
+gsi_opengl_support: true
+gsi_openmp_support: true
+gsi_pdal_support: true
+gsi_png_support: true
+gsi_pthread_support: true
+gsi_postgres_support: true
+gsi_readline_support: true
+gsi_regex_support: true
+gsi_sqlite_support: true
+gsi_tiff_support: true
+gsi_w11_support: true
+gsi_zstd_support: true
+
+### Pre-compiled dependencies or not?
+# If you decide that you want to compile the dependencies yourself,
+# you need to provide the version of the
+gsi_precompiled_proj: true
+gsi_precompiled_geos: true
+gsi_precompiled_gdal: true
+gsi_precompiled_pdal: true
+
+### Compilation options.
+# If you don't define these yourself, the following defaults will be used.
+gsi_cflags: '-O2 -Wall -fPIC -march=native -std=gnu99 -Werror=implicit-function-declaration'
+gsi_cxxflags: ''
+gsi_ldflags: '-s'
