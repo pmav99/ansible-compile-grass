@@ -238,7 +238,7 @@
   shell: 'make -j`nprocs`'
   args:
     chdir: '{{ gsi_build_dir }}/grass/'
-  ignore_errors: yes
+  ignore_errors: true
   become_user: '{{ gsi_builder_username }}'
   become: true
 
