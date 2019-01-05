@@ -8,7 +8,6 @@ lint:
 platforms:
   - name: ubuntu1804
     image: pmav99/phusion-ansible:0.11-1
-    pre_build_image: true
 provisioner:
   name: ansible
   lint:
