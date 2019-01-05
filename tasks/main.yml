@@ -224,7 +224,7 @@
 - name: 'Create the grass configuration script'
   template:
     src: 'configure_grass.sh.j2'
-    dest: '/home/{{ gsi_builder_username }}/configure_grass.sh'
+    dest: '{{ gsi_build_dir }}/grass/configure_grass.sh'
     owner: '{{ gsi_builder_username }}'
     group: '{{ gsi_builder_username }}'
     mode: '0744'
