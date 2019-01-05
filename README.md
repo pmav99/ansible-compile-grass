@@ -1,16 +1,18 @@
-[![Build Status](https://travis-ci.com/pmav99/ansible-role-compile-grass.svg?branch=master)](https://travis-ci.com/pmav99/ansible-role-compile-grass)
+[![Build Status](https://travis-ci.com/pmav99/ansible-role-compile_grass.svg?branch=master)](https://travis-ci.com/pmav99/ansible-role-compile_grass)
 
-Role Name
-=========
+install_grass
+=============
 
-A brief description of the role goes here.
+An ansible role for compiling GRASS GIS on Ubuntu 18.04.
 
-Requirements
-------------
+The role also installs the latest Python 2 version and R
 
-Any pre-requisites that may not be covered by Ansible itself or the role should
-be mentioned here. For instance, if the role uses the EC2 module, it may be a
-good idea to mention in this section that the boto package is required.
+Install the role
+----------------
+
+You can install the role by using:
+
+    ansible-galaxy install pmav99.compile_grass
 
 Role Variables
 --------------
@@ -21,30 +23,27 @@ that can/should be set via parameters to the role. Any variables that are read
 from other roles and/or the global scope (ie. hostvars, group vars, etc.) should
 be mentioned here as well.
 
-Dependencies
-------------
-
-A list of other roles hosted on Galaxy should go here, plus any details in
-regards to parameters that may need to be set for other roles, or variables that
-are used from other roles.
 
 Example Playbook
 ----------------
 
-Including an example of how to use your role (for instance, with variables
-passed in as parameters) is always nice for users too:
+If you want to install grass locally you can use the following playbook:
 
-    - hosts: servers
+    - hosts: 127.0.0.1
+      connection: local
+
+      vars:
+        gsi_builder_username: 'builder'
+
       roles:
-         - { role: compile_grass, x: 42 }
+         - role: pmav99.compile_grass
+
+and you can run it with:
+
+    ansible-playbook playbook.yml
+
 
 License
 -------
 
-BSD
-
-Author Information
-------------------
-
-An optional section for the role authors to include contact information, or a
-website (HTML is not allowed).
+MIT
