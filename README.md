@@ -1,11 +1,13 @@
 [![Build Status](https://travis-ci.com/pmav99/ansible-role-compile_grass.svg?branch=master)](https://travis-ci.com/pmav99/ansible-role-compile_grass)
 
-install_grass
+compile_grass
 =============
 
-An ansible role for compiling GRASS GIS on Ubuntu 18.04.
+An ansible role for compiling GRASS GIS from source on Ubuntu 18.04.
 
 The role also installs the latest Python 2 version and R
+
+All configuration options are supported.
 
 Install the role
 ----------------
