@@ -230,15 +230,20 @@
     mode: '0744'
 
 - name: 'Configure GRASS from source'
-  shell: '{{ gsi_build_dir }}/grass/configure_grass.sh'
+  command: '{{ gsi_build_dir }}/grass/configure_grass.sh'
   become_user: '{{ gsi_builder_username }}'
   become: true
 
 - name: 'Compile GRASS from source'
-  shell: 'make -j`nprocs`'
+  tags:
+    - skip_ansible_lint
+  command: 'make -j{{ ansible_processor_vcpus }}'
   args:
     chdir: '{{ gsi_build_dir }}/grass/'
+  # We need to ignore errors, because on trunk some grass module might be broken.
+  # Nevertheless, the grass binary should usually still be in a working state
   ignore_errors: true
+  # Compilation should be done as a normal user
   become_user: '{{ gsi_builder_username }}'
   become: true
 
