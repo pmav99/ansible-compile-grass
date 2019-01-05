@@ -7,7 +7,7 @@ services:
 env:
   global:
     - ROLE_NAME: compile_grass
-    - FULL_ROLE_NAME: pmav99.install_grass
+    - FULL_ROLE_NAME: pmav99.compile_grass
 
 before_install:
   - sudo apt-get -qq update
