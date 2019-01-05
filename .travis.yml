@@ -7,8 +7,7 @@ services:
 env:
   global:
     - ROLE_NAME: compile_grass
-  matrix:
-    - MOLECULE_DISTRO: ubuntu1804
+    - FULL_ROLE_NAME: pmav99.install_grass
 
 before_install:
   - sudo apt-get -qq update
@@ -22,7 +21,7 @@ before_script:
   # Use actual Ansible Galaxy role name for the project directory.
   - cd ../
   - ls -lah
-  - mv ansible-role-compile-grass pmav99.compile_grass
+  - mv ansible-role-compile_grass pmav99.compile_grass
   - cd pmav99.compile_grass
 
 script:

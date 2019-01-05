@@ -6,19 +6,13 @@ driver:
 lint:
   name: yamllint
 platforms:
-  - name: instance
-    image: "geerlingguy/docker-${MOLECULE_DISTRO:-ubuntu1804}-ansible:latest"
-    command: ${MOLECULE_DOCKER_COMMAND:-""}
-    volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:ro
-    privileged: true
+  - name: ubuntu1804
+    image: pmav99/phusion-ansible:0.11-1
     pre_build_image: true
 provisioner:
   name: ansible
   lint:
     name: ansible-lint
-  playbooks:
-    converge: ${MOLECULE_PLAYBOOK:-playbook.yml}
 scenario:
   name: default
 verifier:
