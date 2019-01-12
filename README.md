@@ -9,6 +9,13 @@ The role also installs the latest Python 2 version and R
 
 All configuration options are supported.
 
+Quickstart
+----------
+
+    ansible-galaxy install pmav99.compile_grass
+    wget https://raw.githubusercontent.com/pmav99/ansible-role-compile_grass/master/compile_grass.yml
+    ansible-playbook compile_grass.yml --ask-become-pass
+
 Install the role
 ----------------
 
@@ -25,25 +32,24 @@ that can/should be set via parameters to the role. Any variables that are read
 from other roles and/or the global scope (ie. hostvars, group vars, etc.) should
 be mentioned here as well.
 
-
 Example Playbook
 ----------------
 
 If you want to install grass locally you can use the following playbook:
 
-    - hosts: 127.0.0.1
-      connection: local
+    - hosts: '127.0.0.1'
+      connection: 'local'
 
       vars:
         gsi_builder_username: 'builder'
 
       roles:
-         - role: pmav99.compile_grass
+         - role: 'pmav99.compile_grass'
+           become: true
 
 and you can run it with:
 
-    ansible-playbook playbook.yml
-
+    ansible-playbook playbook.yml --ask-become-pass
 
 License
 -------
