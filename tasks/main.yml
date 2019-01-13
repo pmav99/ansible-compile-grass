@@ -52,8 +52,8 @@
 
 - name: 'Install xpra'
   apt:
-    name:
-      -'xpra'
+    name: 'xpra'
+    update_cache: true
   when: gsi_setup_xpra|bool == true
   become: true
 
