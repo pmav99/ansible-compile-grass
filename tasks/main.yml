@@ -58,7 +58,7 @@
   become: true
 
 - name: 'Enable & start xpra service'
-  systemd:
+  service:
     name: 'xpra'
     state: 'started'
     enabled: true
