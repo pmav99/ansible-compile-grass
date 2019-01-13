@@ -5,6 +5,7 @@
 
   vars:
     gsi_builder_username: 'builder'
+    gsi_setup_xpra: true
 
   pre_tasks:
     - name: 'Update apt cache'

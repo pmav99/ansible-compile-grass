@@ -36,6 +36,35 @@
     mode: '0755'
   become: true
 
+- name: 'Add the signing key for xpra'
+  apt_key:
+    url: 'https://xpra.org/gpg.asc'
+    state: 'present'
+  when: gsi_setup_xpra|bool == true
+  become: true
+
+- name: 'Add the repository for xpra'
+  apt_repository:
+    repo: 'deb https://xpra.org/ bionic main'
+    state: present
+  when: gsi_setup_xpra|bool == true
+  become: true
+
+- name: 'Install xpra'
+  apt:
+    name:
+      -'xpra'
+  when: gsi_setup_xpra|bool == true
+  become: true
+
+- name: 'Enable & start xpra service'
+  systemd:
+    name: 'xpra'
+    state: 'started'
+    enabled: true
+  when: gsi_setup_xpra|bool == true
+  become: true
+
 - name: 'Install prerequisites'
   apt:
     name:
