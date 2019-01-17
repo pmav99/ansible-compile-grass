@@ -10,6 +10,7 @@ gsi_build_dir: '/usr/local/src'
 ### Program versions
 # gsi_svn_branch: 'https://svn.osgeo.org/grass/grass/branches/releasebranch_7_6/'
 gsi_svn_branch: 'https://svn.osgeo.org/grass/grass/trunk/'
+gsi_python_version: 3
 
 ### GRASS configuration options
 gsi_blas_support: true

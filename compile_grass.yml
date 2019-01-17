@@ -7,6 +7,7 @@
     gsi_builder_username: 'builder'
     # gsi_svn_branch: 'https://svn.osgeo.org/grass/grass/branches/releasebranch_7_6/'
     gsi_svn_branch: 'https://svn.osgeo.org/grass/grass/trunk/'
+    gsi_python_version: 3
 
   roles:
     - role: pmav99.compile_grass
