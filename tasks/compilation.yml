@@ -3,7 +3,7 @@
 
 - name: 'Check out GRASS source code'
   subversion:
-    repo: 'https://svn.osgeo.org/grass/grass/trunk'
+    repo: '{{ gsi_svn_branch }}'
     dest: '{{ gsi_build_dir }}/grass/'
   become_user: '{{ gsi_builder_username }}'
   become: true

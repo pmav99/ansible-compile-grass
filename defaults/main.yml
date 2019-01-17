@@ -8,7 +8,8 @@ gsi_builder_password: '$6$SjzEETi/JfTKV1$KgJ22MKMWOTez0Aq3e2pR0MwUJglnel/VHhxXua
 gsi_build_dir: '/usr/local/src'
 
 ### Program versions
-gsi_grass_branch: 'trunk'
+gsi_svn_branch: 'https://svn.osgeo.org/grass/grass/branches/releasebranch_7_6/'
+gsi_svn_branch: 'https://svn.osgeo.org/grass/grass/trunk/'
 
 ### GRASS configuration options
 gsi_blas_support: true
