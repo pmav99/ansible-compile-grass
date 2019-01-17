@@ -1,0 +1,37 @@
+---
+# tasks file for compile_grass
+
+- name: 'Ensure that the "builder" user account has been defined'
+  assert:
+    that: 'gsi_builder_username != ""'
+    msg: 'You must define a builder user account. Set `gsi_builder_username` in the playbook file or provide its value via --extra-vars'
+
+- name: 'Get list of existing users'
+  getent:
+    database: passwd
+
+- name: 'Install sudo'
+  apt:
+    name: 'sudo'
+  become: true
+
+- name: 'Create "builder" user account'
+  user:
+    name: '{{ gsi_builder_username }}'
+    groups: 'sudo'
+    append: true
+    shell: '{{ gsi_builder_shell }}'
+    state: 'present'
+    password: '{{ gsi_builder_password }}'
+    update_password: 'on_create'
+  when: gsi_builder_username not in ansible_facts.getent_passwd
+  become: true
+
+- name: 'Create the build directory and ensure our "builder" account has write permissions'
+  file:
+    path: '{{ gsi_build_dir }}'
+    state: 'directory'
+    owner: '{{ gsi_builder_username }}'
+    group: '{{ gsi_builder_username }}'
+    mode: '0755'
+  become: true

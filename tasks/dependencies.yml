@@ -1,0 +1,180 @@
+---
+# tasks file for compile_grass
+
+- name: 'Install prerequisites'
+  apt:
+    name:
+      - 'build-essential'
+      - 'autoconf2.13'
+      - 'autotools-dev'
+      - 'debhelper'
+      - 'fakeroot'
+      - 'flex'
+      - 'make'
+      - 'bison'
+      - 'gcc'
+      - 'libgcc1'
+      - 'g++'
+      - 'cmake'
+      - 'ccache'
+      - 'python'
+      - 'python-dev'
+      - 'python-opengl'
+      - 'python-wxversion'
+      - 'python-wxtools'
+      - 'python-wxgtk3.0'
+      - 'python-dateutil'
+      - 'python-dateutil'
+      - 'python-numpy'
+      - 'libgsl-dev'
+      - 'libjpeg-dev'
+      - 'libpng-dev'
+      - 'libpnglite-dev'
+      - 'libtiff-dev'
+      - 'libtiff5-dev'
+      - 'libreadline-dev'
+      - 'dpatch'
+      - 'libatlas-base-dev'
+      - 'wx3.0-headers'
+      - 'wx-common'
+      - 'libwxgtk3.0-dev'
+      - 'libwxbase3.0-dev'
+      - 'libncurses5-dev'
+      - 'zlib1g-dev'
+      - 'gettext'
+      - 'sqlite3'
+      - 'libsqlite3-dev'
+      - 'libpq-dev'
+      - 'libreadline7'
+      - 'libboost-thread-dev'
+      - 'libboost-program-options-dev'
+      - 'subversion'
+      - 'wget'
+      # This package seems not to exist any more?
+      # Maybe we need ffmpeg instead?
+      # Should we directly install the deb package?
+      # https://launchpad.net/ubuntu/bionic/amd64/libav-tools/7:3.3.4-2
+      # - 'libav-tools'
+      - 'libavutil-dev'
+      - 'ffmpeg2theora'
+      - 'libffmpegthumbnailer-dev'
+      - 'libavcodec-dev'
+      - 'libavformat-dev'
+      - 'libswscale-dev'
+      - 'checkinstall'
+      - 'libglu1-mesa-dev'
+      - 'libxmu-dev'
+      - 'ghostscript'
+  become: true
+
+- name: 'Install BLAS development files'
+  apt:
+    name:
+      - 'libblas-dev'
+  when: gsi_blas_support| bool == true
+
+- name: 'Install bzip2 development files'
+  apt:
+    name:
+      - 'libbz2-dev'
+  when: gsi_bzip2_support| bool == true
+
+- name: 'Install cairo development files'
+  apt:
+    name:
+      - 'libcairo2-dev'
+  when: gsi_cairo_support| bool == true
+
+- name: 'Install fftw3 development files'
+  apt:
+    name:
+      - 'libfftw3-dev'
+  when: gsi_fftw_support| bool == true
+
+- name: 'Install freetype development files'
+  apt:
+    name:
+      - 'libfreetype6-dev'
+  when: gsi_freetype_support| bool == true
+
+- name: 'Install the pre-compiled dev-packages for GDAL'
+  apt:
+    name:
+      - 'libgdal-dev'
+      - 'python-gdal'
+      - 'gdal-bin'
+  become: true
+  when: (gsi_gdal_support| bool == true) and (gsi_precompiled_gdal|bool == true)
+
+- name: 'Install the pre-compiled dev-packages for GEOS'
+  apt:
+    name:
+      - 'libgeos-dev'
+  become: true
+  when: (gsi_geos_support| bool == true) and (gsi_precompiled_geos|bool == true)
+
+- name: 'Install lapack development files'
+  apt:
+    name:
+      - 'liblapack-dev'
+  become: true
+  when: gsi_lapack_support|bool == true
+
+- name: 'Install liblas development files'
+  apt:
+    name:
+      - 'liblas-c-dev'
+  become: true
+  when: gsi_liblas_support|bool == true
+
+- name: 'Install MySQL development files'
+  apt:
+    name:
+      - 'libmysqlclient-dev'
+  when: gsi_mysql_support| bool == true
+
+- name: 'Install netcdf development files'
+  apt:
+    name:
+      - 'libnetcdf-dev'
+      - 'netcdf-bin'
+  become: true
+  when: gsi_netcdf_support|bool == true
+
+- name: 'Install odbc development files'
+  apt:
+    name:
+      - 'unixodbc-dev'
+  become: true
+  when: gsi_odbc_support|bool == true
+
+- name: 'Install OpenCL development files'
+  apt:
+    name:
+      - 'opencl-headers'
+      - 'ocl-icd-libopencl1'
+  when: gsi_opencl_support| bool == true
+
+- name: 'Install the pre-compiled dev packages for PDAL'
+  apt:
+    name:
+      - 'libpdal-dev'
+      - 'libpdal-plugin-python'
+      - 'pdal'
+  become: true
+  when: gsi_precompiled_pdal|bool == true
+
+- name: 'Install the pre-compiled dev-packages for PROJ.4'
+  apt:
+    name:
+      - 'proj-bin'
+      - 'proj-data'
+      - 'libproj-dev'
+  become: true
+  when: gsi_precompiled_proj|bool == true
+
+- name: 'Install zstd development files'
+  apt:
+    name:
+      - 'libzstd-dev'
+  when: gsi_zstd_support| bool == true
