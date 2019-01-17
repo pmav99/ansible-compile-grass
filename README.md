@@ -13,7 +13,7 @@ Quickstart
 ----------
 
     ansible-galaxy install pmav99.compile_grass
-    wget https://raw.githubusercontent.com/pmav99/ansible-role-compile_grass/master/compile_grass.yml
+    wget https://git.io/fh8FY -O compile_grass.yml
     ansible-playbook compile_grass.yml --ask-become-pass
 
 Install the role
