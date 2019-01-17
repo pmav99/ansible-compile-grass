@@ -5,7 +5,6 @@
 
   vars:
     gsi_builder_username: 'builder'
-    gsi_setup_xpra: false
 
   roles:
     - role: pmav99.compile_grass

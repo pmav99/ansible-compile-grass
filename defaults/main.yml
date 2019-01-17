@@ -7,9 +7,6 @@ gsi_builder_password: '$6$SjzEETi/JfTKV1$KgJ22MKMWOTez0Aq3e2pR0MwUJglnel/VHhxXua
 ### Directories
 gsi_build_dir: '/usr/local/src'
 
-### Various
-gsi_setup_xpra: false
-
 ### Program versions
 gsi_grass_branch: 'trunk'
 
