@@ -50,6 +50,7 @@ gsi_precompiled_pdal: true
 
 ### Compilation options.
 # If you don't define these yourself, the following defaults will be used.
+gsi_no_vcpus: 8
 gsi_cflags: '-O2 -Wall -fPIC -march=native -std=gnu99 -Werror=implicit-function-declaration'
 gsi_cxxflags: ''
 gsi_ldflags: '-s'

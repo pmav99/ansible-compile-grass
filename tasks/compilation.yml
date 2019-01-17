@@ -42,7 +42,7 @@
     - skip_ansible_lint
   # We need to use shell redirection because the output of the compilation, exceeds
   # the travis log size.
-  shell: 'make -j{{ ansible_processor_vcpus }} > compilation_output.txt 2>&1'
+  shell: 'make -j{{ [ansible_processor_vcpus, gsi_no_vcpus] | min }} > compilation_output.txt 2>&1'
   args:
     chdir: '{{ gsi_build_dir }}/grass/'
     creates: 'bin.x86_64-pc-linux-gnu/grass*'
