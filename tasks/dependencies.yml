@@ -1,6 +1,12 @@
 ---
 # tasks file for compile_grass
 
+- name: 'Add ppa:deadsnakes/ppa repo (for newer python versions)'
+  tags: []
+  apt_repository:
+    repo: 'ppa:deadsnakes/ppa'
+  become: true
+
 - name: 'Install prerequisites'
   apt:
     name:
@@ -66,6 +72,18 @@
       - 'libxmu-dev'
       - 'ghostscript'
   become: true
+
+- name: 'Install python 2 dependencies'
+  apt:
+    name:
+      - ''
+  when: gsi_python_version != 3
+
+- name: 'Install python 2 dependencies'
+  apt:
+    name:
+      - ''
+  when: gsi_python_version == 3
 
 - name: 'Install BLAS development files'
   apt:
