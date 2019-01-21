@@ -3,7 +3,7 @@
 
 - name: 'Check out GRASS source code'
   subversion:
-    repo: '{{ gcs_svn_branch }}'
+    repo: '{{ gcs_svn_branch_url }}'
     dest: '{{ gcs_build_dir }}/grass/'
   become_user: '{{ gcs_builder_username }}'
   become: true

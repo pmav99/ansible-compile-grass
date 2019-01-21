@@ -8,8 +8,8 @@ gcs_builder_password: '$6$SjzEETi/JfTKV1$KgJ22MKMWOTez0Aq3e2pR0MwUJglnel/VHhxXua
 gcs_build_dir: '/usr/local/src'
 
 ### Program versions
-# gcs_svn_branch: 'https://svn.osgeo.org/grass/grass/branches/releasebranch_7_6/'
-gcs_svn_branch: 'https://svn.osgeo.org/grass/grass/trunk/'
+# gcs_svn_branch_url: 'https://svn.osgeo.org/grass/grass/branches/releasebranch_7_6/'
+gcs_svn_branch_url: 'https://svn.osgeo.org/grass/grass/trunk/'
 gcs_python_version: 3
 
 ### GRASS configuration options

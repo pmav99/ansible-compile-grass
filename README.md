@@ -36,7 +36,7 @@ exist, the playbook will create a new user account with that username.
 The sample playbook sets this to `builder` but you should probably use your main
 account's username.
 
-Other useful variables are `gcs_svn_branch` which is the URL to the Subversion branch
+Other useful variables are `gcs_svn_branch_url` which is the URL to the Subversion branch
 that will be compiled and `gcs_python_version` which specifies the Python version which
 will be used.
 
@@ -53,8 +53,8 @@ If you want to install grass locally you can use the following playbook:
 
       vars:
         gcs_builder_username: 'builder'
-        # gcs_svn_branch: 'https://svn.osgeo.org/grass/grass/branches/releasebranch_7_6/'
-        gcs_svn_branch: 'https://svn.osgeo.org/grass/grass/trunk/'
+        # gcs_svn_branch_url: 'https://svn.osgeo.org/grass/grass/branches/releasebranch_7_6/'
+        gcs_svn_branch_url: 'https://svn.osgeo.org/grass/grass/trunk/'
         gcs_python_version: 3
 
       roles:
