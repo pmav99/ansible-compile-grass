@@ -14,9 +14,11 @@ Major points:
 Quickstart
 ----------
 
-    ansible-galaxy install pmav99.compile_grass
-    wget https://git.io/fh8FY -O compile_grass.yml
-    ansible-playbook compile_grass.yml --ask-become-pass
+If you are OK with the defaults, this is all you need to do:
+
+    ansible-galaxy install pmav99.compile_grass             # install the playbook from ansible-galaxy
+    wget https://git.io/fh8FY -O compile_grass.yml          # donwload the sample playbook-file
+    ansible-playbook compile_grass.yml --ask-become-pass    # run the playbook. It will ask you for the sudo password
 
 Install the role
 ----------------
@@ -31,22 +33,21 @@ Role Variables
 The only mandatory variable is `gcs_builder_username`. This is the user that will own
 the directory with GRASS source and with which the compilation will be done. If you do
 not set it the playbook will not execute. If a user with the specified username does not
-exist, the playbook will create a new user account with that username.
+exist, the playbook will create a new user account with that username. The password for 
+the new user will be 1234 (you can set that too using `gcs_builder_password`).
 
-The sample playbook sets this to `builder` but you should probably use your main
-account's username.
+The [sample playbook](https://github.com/pmav99/ansible-role-compile_grass/blob/master/compile_grass.yml)
+sets the username to `builder` but you should probably use your main account's username.
 
 Other useful variables are `gcs_svn_branch_url` which is the URL to the Subversion branch
 that will be compiled and `gcs_python_version` which specifies the Python version which
 will be used.
 
 The rest options are pretty-much self-explanatory and you can check them out in
-`defaults/main.yml`
+[`defaults/main.yml`](https://github.com/pmav99/ansible-role-compile_grass/blob/master/defaults/main.yml)
 
-Example Playbook
+Sample Playbook
 ----------------
-
-If you want to install grass locally you can use the following playbook:
 
     - hosts: '127.0.0.1'
       connection: 'local'
@@ -61,7 +62,7 @@ If you want to install grass locally you can use the following playbook:
          - role: 'pmav99.compile_grass'
            become: true
 
-and you can run it with:
+You can run it with:
 
     ansible-playbook playbook.yml --ask-become-pass
 
