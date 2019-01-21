@@ -2,11 +2,11 @@
 
 set euo -pipefail
 
-cd {{ gsi_build_dir }}/grass
+cd {{ gcs_build_dir }}/grass
 
-CFLAGS='{{ gsi_cflags }}' \
-CXXFLAGS='{{ gsi_cxxflags }}' \
-LDFLAGS='{{ gsi_ldflags }}' \
+CFLAGS='{{ gcs_cflags }}' \
+CXXFLAGS='{{ gcs_cxxflags }}' \
+LDFLAGS='{{ gcs_ldflags }}' \
 ./configure \
     --host=x86_64-linux-gnu \
     --build=x86_64-linux-gnu \
@@ -18,38 +18,38 @@ LDFLAGS='{{ gsi_ldflags }}' \
     --enable-largefile=yes \
     --with-x \
     --with-wxwidgets=/usr/bin/wx-config \
-    {% if gsi_blas_support -%} --with-blas {% else -%} --without-blas {% endif %} \
-    {% if gsi_bzip2_support -%} --with-bzlib {% else -%} --without-bzlib {% endif %} \
-    {% if gsi_cxx_support -%} --with-cxx {% else -%} --without-cxx {% endif %} \
-    {% if gsi_cairo_support -%} --with-cairo {% else -%} --without-cairo {% endif %} \
-    {% if gsi_fftw_support -%} --with-fftw {% else -%} --without-fftw {% endif %} \
-    {% if gsi_gdal_support -%} --with-gdal {% else -%} --without-gdal {% endif %} \
-    {% if gsi_lapack_support -%} --with-lapack {% else -%} --without-lapack {% endif %} \
-    {% if gsi_liblas_support -%} --with-liblas=/usr/bin/liblas-config {% else -%} --without-liblas {% endif %} \
-    {% if gsi_mysql_support -%} --with-mysql --with-mysql-includes='/usr/include/mysql' {% else -%} --without-mysql {% endif %} \
-    {% if gsi_netcdf_support -%} --with-netcdf=/usr/bin/nc-config {% else -%} --without-netcdf {% endif %} \
-    {% if gsi_nls_support -%} --with-nls {% else -%} --without-nls {% endif %} \
-    {% if gsi_odbc_support -%} --with-odbc {% else -%} --without-odbc {% endif %} \
-    {% if gsi_opengl_support -%} --with-opengl {% else %} --without-opengl {% endif %} \
-    {% if gsi_openmp_support -%} --with-openmp {% else %} --without-openmp {% endif %} \
-    {% if gsi_png_support -%} --with-png {% else %} --without-png {% endif %} \
-    {% if gsi_pthread_support -%} --with-pthread {% else %} --without-pthread {% endif %} \
-    {% if gsi_readline_support -%} --with-readline {% else %} --without-readline {% endif %} \
-    {% if gsi_regex_support -%} --with-regex {% else %} --without-regex {% endif %} \
-    {% if gsi_sqlite_support -%} --with-sqlite {% else %} --without-sqlite {% endif %} \
-    {% if gsi_tiff_support -%} --with-tiff {% else %} --without-tiff {% endif %} \
-    {% if gsi_w11_support -%} --enable-w11 {% else %} --disable-w11 {% endif %} \
-    {% if gsi_zstd_support -%} --with-zstd {% else %} --without-zstd {% endif %} \
+    {% if gcs_blas_support -%} --with-blas {% else -%} --without-blas {% endif %} \
+    {% if gcs_bzip2_support -%} --with-bzlib {% else -%} --without-bzlib {% endif %} \
+    {% if gcs_cxx_support -%} --with-cxx {% else -%} --without-cxx {% endif %} \
+    {% if gcs_cairo_support -%} --with-cairo {% else -%} --without-cairo {% endif %} \
+    {% if gcs_fftw_support -%} --with-fftw {% else -%} --without-fftw {% endif %} \
+    {% if gcs_gdal_support -%} --with-gdal {% else -%} --without-gdal {% endif %} \
+    {% if gcs_lapack_support -%} --with-lapack {% else -%} --without-lapack {% endif %} \
+    {% if gcs_liblas_support -%} --with-liblas=/usr/bin/liblas-config {% else -%} --without-liblas {% endif %} \
+    {% if gcs_mysql_support -%} --with-mysql --with-mysql-includes='/usr/include/mysql' {% else -%} --without-mysql {% endif %} \
+    {% if gcs_netcdf_support -%} --with-netcdf=/usr/bin/nc-config {% else -%} --without-netcdf {% endif %} \
+    {% if gcs_nls_support -%} --with-nls {% else -%} --without-nls {% endif %} \
+    {% if gcs_odbc_support -%} --with-odbc {% else -%} --without-odbc {% endif %} \
+    {% if gcs_opengl_support -%} --with-opengl {% else %} --without-opengl {% endif %} \
+    {% if gcs_openmp_support -%} --with-openmp {% else %} --without-openmp {% endif %} \
+    {% if gcs_png_support -%} --with-png {% else %} --without-png {% endif %} \
+    {% if gcs_pthread_support -%} --with-pthread {% else %} --without-pthread {% endif %} \
+    {% if gcs_readline_support -%} --with-readline {% else %} --without-readline {% endif %} \
+    {% if gcs_regex_support -%} --with-regex {% else %} --without-regex {% endif %} \
+    {% if gcs_sqlite_support -%} --with-sqlite {% else %} --without-sqlite {% endif %} \
+    {% if gcs_tiff_support -%} --with-tiff {% else %} --without-tiff {% endif %} \
+    {% if gcs_w11_support -%} --enable-w11 {% else %} --disable-w11 {% endif %} \
+    {% if gcs_zstd_support -%} --with-zstd {% else %} --without-zstd {% endif %} \
     {# FREETYPE -#}
-    {% if gsi_freetype_support -%}
+    {% if gcs_freetype_support -%}
     --with-freetype \
     --with-freetype-includes='/usr/include/freetype2/' \
     {% else -%}
     --without-freetype \
     {% endif -%}
     {# GEOS -#}
-    {% if gsi_geos_support -%}
-        {% if gsi_precompiled_geos -%}
+    {% if gcs_geos_support -%}
+        {% if gcs_precompiled_geos -%}
             --with-geos=/usr/bin/geos-config \
         {% else -%}
             --with-geos=/usr/local/bin/geos-config \
@@ -58,7 +58,7 @@ LDFLAGS='{{ gsi_ldflags }}' \
         --without-geos \
     {%- endif -%}
     {# OpenCL -#}
-    {% if gsi_opencl_support -%}
+    {% if gcs_opencl_support -%}
     --with-opencl \
     --with-opencl-includes=/usr/include/CL \
     --with-opencl-libs=/usr/lib/x86_64-linux-gnu \
@@ -66,15 +66,15 @@ LDFLAGS='{{ gsi_ldflags }}' \
     --without-opencl \
     {% endif -%}
     {# POSTGRES -#}
-    {% if gsi_postgres_support -%}
+    {% if gcs_postgres_support -%}
     --with-postgres \
     --with-postgres-includes=/usr/include/postgresql/ \
     {% else -%}
     --without-postgres \
     {% endif %}
     {# PDAL -#}
-    {% if gsi_pdal_support -%}
-        {% if gsi_precompiled_pdal -%}
+    {% if gcs_pdal_support -%}
+        {% if gcs_precompiled_pdal -%}
             --with-pdal=/usr/bin/pdal-config \
         {% else -%}
             --with-pdal=/usr/local/bin/pdal-config \
@@ -83,7 +83,7 @@ LDFLAGS='{{ gsi_ldflags }}' \
         --without-pdal \
     {% endif %}
     {# PROJ -#}
-    {% if gsi_precompiled_proj -%}
+    {% if gcs_precompiled_proj -%}
     --with-proj-share=/usr/share/proj \
     {% else -%}
     --with-proj-share=/usr/local/share/proj \

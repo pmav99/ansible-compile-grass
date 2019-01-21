@@ -4,7 +4,7 @@
   become: true
 
   vars:
-    gsi_builder_username: 'builder'
+    gcs_builder_username: 'builder'
 
   pre_tasks:
     - name: 'Update apt cache'

@@ -3,37 +3,37 @@
 
 - name: 'Check out GRASS source code'
   subversion:
-    repo: '{{ gsi_svn_branch }}'
-    dest: '{{ gsi_build_dir }}/grass/'
-  become_user: '{{ gsi_builder_username }}'
+    repo: '{{ gcs_svn_branch }}'
+    dest: '{{ gcs_build_dir }}/grass/'
+  become_user: '{{ gcs_builder_username }}'
   become: true
 
 - name: 'Create the grass configuration script'
   template:
     src: 'configure_grass.sh.j2'
-    dest: '{{ gsi_build_dir }}/grass/configure_grass.sh'
-    owner: '{{ gsi_builder_username }}'
-    group: '{{ gsi_builder_username }}'
+    dest: '{{ gcs_build_dir }}/grass/configure_grass.sh'
+    owner: '{{ gcs_builder_username }}'
+    group: '{{ gcs_builder_username }}'
     mode: '0744'
   become: true
 
 - name: 'Configure GRASS from source'
-  command: '{{ gsi_build_dir }}/grass/configure_grass.sh'
+  command: '{{ gcs_build_dir }}/grass/configure_grass.sh'
   changed_when: false
-  become_user: '{{ gsi_builder_username }}'
+  become_user: '{{ gcs_builder_username }}'
   become: true
 
 - name: 'Cleanup output of previous compilations 1/2'
   command: 'make cleandistdirs'
   args:
-    chdir: '{{ gsi_build_dir }}/grass/'
+    chdir: '{{ gcs_build_dir }}/grass/'
   changed_when: false
   become: true
 
 - name: 'Cleanup output of previous compilations 2/2'
   file:
     state: absent
-    path: '{{ gsi_build_dir }}/grass/compilation_output.txt'
+    path: '{{ gcs_build_dir }}/grass/compilation_output.txt'
   changed_when: false
   become: true
 
@@ -42,19 +42,19 @@
   #     - skip_ansible_lint
   #   # We need to use shell redirection because the output of the compilation, exceeds
   #   # the travis log size.
-  #   shell: 'make -j{{ [ansible_processor_vcpus, gsi_no_vcpus] | min }} > compilation_output.txt 2>&1'
+  #   shell: 'make -j{{ [ansible_processor_vcpus, gcs_no_vcpus] | min }} > compilation_output.txt 2>&1'
   #   args:
-  #     chdir: '{{ gsi_build_dir }}/grass/'
+  #     chdir: '{{ gcs_build_dir }}/grass/'
   #     creates: 'bin.x86_64-pc-linux-gnu/grass*'
   #   # We need to ignore errors, because on trunk some grass module might be broken.
   #   # Nevertheless, the grass binary should usually still be in a working state
   #   changed_when: false
   #   ignore_errors: true
   #   # Compilation should be done as a normal user
-  #   become_user: '{{ gsi_builder_username }}'
+  #   become_user: '{{ gcs_builder_username }}'
   #   become: true
   #
   # - name: 'Ensure that grass was actually compiled.'
   #   stat:
-  #     path: '{{ gsi_build_dir }}/grass/bin.x86_64-pc-linux-gnu/grass*'
+  #     path: '{{ gcs_build_dir }}/grass/bin.x86_64-pc-linux-gnu/grass*'
   #   become: true

@@ -41,7 +41,9 @@ If you want to install grass locally you can use the following playbook:
       connection: 'local'
 
       vars:
-        gsi_builder_username: 'builder'
+        gcs_builder_username: 'builder'
+        gcs_svn_branch: 'https://svn.osgeo.org/grass/grass/trunk/'
+        gcs_python_version: 3
 
       roles:
          - role: 'pmav99.compile_grass'
