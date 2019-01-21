@@ -28,8 +28,6 @@ You can install the role by using:
 Role Variables
 --------------
 
-### Mandatory
-
 The only mandatory variable is `gcs_builder_username`. This is the user that will own
 the directory with GRASS source and with which the compilation will be done. If you do
 not set it the playbook will not execute. If a user with the specified username does not
@@ -38,9 +36,11 @@ exist, the playbook will create a new user account with that username.
 The sample playbook sets this to `builder` but you should probably use your main
 account's username.
 
-### Configuration options
+Other useful variables are `gcs_svn_branch` which is the URL to the Subversion branch
+that will be compiled and `gcs_python_version` which specifies the Python version which
+will be used.
 
-The rest options are pretty-much self-explanatory and you can check them in
+The rest options are pretty-much self-explanatory and you can check them out in
 `defaults/main.yml`
 
 Example Playbook
