@@ -16,7 +16,7 @@ Quickstart
 
 If you are OK with the defaults, this is all you need to do:
 
-    ansible-galaxy install pmav99.compile_grass             # install the playbook from ansible-galaxy
+    ansible-galaxy install pmav99.compile_grass             # install the role from ansible-galaxy
     wget https://git.io/fh8FY -O compile_grass.yml          # donwload the sample playbook-file
     ansible-playbook compile_grass.yml --ask-become-pass    # run the playbook. It will ask you for the sudo password
 
