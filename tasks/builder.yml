@@ -3,8 +3,8 @@
 
 - name: 'Ensure that the "builder" user account has been defined'
   assert:
-    that: 'gsi_builder_username != ""'
-    msg: 'You must define a builder user account. Set `gsi_builder_username` in the playbook file or provide its value via --extra-vars'
+    that: 'gcs_builder_username != ""'
+    msg: 'You must define a builder user account. Set `gcs_builder_username` in the playbook file or provide its value via --extra-vars'
 
 - name: 'Get list of existing users'
   getent:
@@ -17,21 +17,49 @@
 
 - name: 'Create "builder" user account'
   user:
-    name: '{{ gsi_builder_username }}'
+    name: '{{ gcs_builder_username }}'
     groups: 'sudo'
     append: true
-    shell: '{{ gsi_builder_shell }}'
+    shell: '{{ gcs_builder_shell }}'
     state: 'present'
-    password: '{{ gsi_builder_password }}'
+    password: '{{ gcs_builder_password }}'
     update_password: 'on_create'
-  when: gsi_builder_username not in ansible_facts.getent_passwd
+  when: gcs_builder_username not in ansible_facts.getent_passwd
   become: true
 
 - name: 'Create the build directory and ensure our "builder" account has write permissions'
   file:
-    path: '{{ gsi_build_dir }}'
+    path: '{{ gcs_build_dir }}'
     state: 'directory'
-    owner: '{{ gsi_builder_username }}'
-    group: '{{ gsi_builder_username }}'
+    owner: '{{ gcs_builder_username }}'
+    group: '{{ gcs_builder_username }}'
     mode: '0755'
+  become: true
+
+# We create a link from /usr/bin/python3 to $HOME/.local/bin/python
+# This means that "python" will now point to "python3" and not "python2"
+# This is essentially the same as removing the python2-minimal package
+# which is not needed by default in ubuntu 18.04
+# And it also allows us to compile GRASS without creating virtualenvs
+# Your mileage may vary though...
+# TODO if we end up using a virtualenv, we will probably have to do
+# something like this: https://stackoverflow.com/a/20572360/592289
+- name: 'Create $HOME/.local/bin'
+  file:
+    path: '/home/{{ gcs_builder_username }}/.local/bin/'
+    owner: '{{ gcs_builder_username }}'
+    group: '{{ gcs_builder_username }}'
+    state: 'directory'
+  changed_when: false
+  become: true
+
+- name: 'Add a link from /usr/bin/python3 -> $HOME/.local/bin/python'
+  file:
+    src: '/usr/bin/python3'
+    dest: '/home/{{ gcs_builder_username }}/.local/bin/python'
+    owner: '{{ gcs_builder_username }}'
+    group: '{{ gcs_builder_username }}'
+    state: 'link'
+  when: gcs_python_version == 3
+  changed_when: false
   become: true

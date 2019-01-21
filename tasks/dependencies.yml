@@ -1,9 +1,38 @@
 ---
 # tasks file for compile_grass
 
+
+- name: 'Ensure that the specified Python version is either "2" or "3"'
+  assert:
+    that: (gcs_python_version == 2) or (gcs_python_version == 3)
+    msg: 'Python version needs to be either 2 or 3, not: {{ gcs_python_version }}'
+
+- name: 'PDAL support is not available for python3 unless we compile from source'
+  set_fact:
+    gcs_pdal_support: false
+  when: gcs_python_version == 3
+
+- name: 'Add ppa:deadsnakes/ppa repo (for newer python versions)'
+  apt_repository:
+    repo: 'ppa:deadsnakes/ppa'
+  become: true
+
+- name: 'Add ppa:ubuntugis/ubuntugis-unstable'
+  apt_repository:
+    repo: 'ppa:ubuntugis/ubuntugis-unstable'
+  become: true
+
+# This package seems not to exist any more?
+# Maybe we need ffmpeg instead?
+# Should we directly install the deb package?
+# https://launchpad.net/ubuntu/bionic/amd64/libav-tools/7:3.3.4-2
+# - 'libav-tools'
 - name: 'Install prerequisites'
   apt:
     name:
+      - 'python-wxversion'
+      - 'python-wxtools'
+      - 'python-wxgtk3.0'
       - 'build-essential'
       - 'autoconf2.13'
       - 'autotools-dev'
@@ -17,15 +46,10 @@
       - 'g++'
       - 'cmake'
       - 'ccache'
-      - 'python'
-      - 'python-dev'
-      - 'python-opengl'
-      - 'python-wxversion'
-      - 'python-wxtools'
-      - 'python-wxgtk3.0'
-      - 'python-dateutil'
-      - 'python-dateutil'
-      - 'python-numpy'
+      - 'wx-common'
+      - 'wx3.0-headers'
+      - 'libwxgtk3.0-dev'
+      - 'libwxbase3.0-dev'
       - 'libgsl-dev'
       - 'libjpeg-dev'
       - 'libpng-dev'
@@ -35,10 +59,6 @@
       - 'libreadline-dev'
       - 'dpatch'
       - 'libatlas-base-dev'
-      - 'wx3.0-headers'
-      - 'wx-common'
-      - 'libwxgtk3.0-dev'
-      - 'libwxbase3.0-dev'
       - 'libncurses5-dev'
       - 'zlib1g-dev'
       - 'gettext'
@@ -50,11 +70,6 @@
       - 'libboost-program-options-dev'
       - 'subversion'
       - 'wget'
-      # This package seems not to exist any more?
-      # Maybe we need ffmpeg instead?
-      # Should we directly install the deb package?
-      # https://launchpad.net/ubuntu/bionic/amd64/libav-tools/7:3.3.4-2
-      # - 'libav-tools'
       - 'libavutil-dev'
       - 'ffmpeg2theora'
       - 'libffmpegthumbnailer-dev'
@@ -67,35 +82,75 @@
       - 'ghostscript'
   become: true
 
+- name: 'Install python 2 dependencies'
+  apt:
+    name:
+      #
+      - 'python'
+      - 'python-dev'
+      - 'python-wxversion'
+      - 'python-wxtools'
+      - 'python-wxgtk3.0'
+      - 'python-opengl'
+      - 'python-dateutil'
+      - 'python-numpy'
+      - 'python-six'
+      # GDAL and PDAL might be turned of on configuration but OK,
+      # a package will not do so much harm...
+      - 'python-gdal'
+      - 'libpdal-plugin-python'
+  when: gcs_python_version == 2
+  become: true
+
+- name: 'Install python 3 dependencies'
+  apt:
+    name:
+      - 'python3'
+      - 'python3-dev'
+      - 'python3-venv'
+      - 'python3-opengl'
+      # are these needed?
+      # - 'python-wxversion'
+      # - 'python-wxtools'
+      - 'python3-wxgtk4.0'
+      - 'python3-dateutil'
+      - 'python3-numpy'
+      - 'python3-six'
+      # GDAL and PDAL might be turned of on configuration but OK,
+      # a package will not do so much harm...
+      - 'python3-gdal'
+  when: gcs_python_version == 3
+  become: true
+
 - name: 'Install BLAS development files'
   apt:
     name:
       - 'libblas-dev'
-  when: gsi_blas_support| bool == true
+  when: gcs_blas_support| bool == true
 
 - name: 'Install bzip2 development files'
   apt:
     name:
       - 'libbz2-dev'
-  when: gsi_bzip2_support| bool == true
+  when: gcs_bzip2_support| bool == true
 
 - name: 'Install cairo development files'
   apt:
     name:
       - 'libcairo2-dev'
-  when: gsi_cairo_support| bool == true
+  when: gcs_cairo_support| bool == true
 
 - name: 'Install fftw3 development files'
   apt:
     name:
       - 'libfftw3-dev'
-  when: gsi_fftw_support| bool == true
+  when: gcs_fftw_support| bool == true
 
 - name: 'Install freetype development files'
   apt:
     name:
       - 'libfreetype6-dev'
-  when: gsi_freetype_support| bool == true
+  when: gcs_freetype_support| bool == true
 
 - name: 'Install the pre-compiled dev-packages for GDAL'
   apt:
@@ -104,34 +159,34 @@
       - 'python-gdal'
       - 'gdal-bin'
   become: true
-  when: (gsi_gdal_support| bool == true) and (gsi_precompiled_gdal|bool == true)
+  when: (gcs_gdal_support| bool == true) and (gcs_precompiled_gdal|bool == true)
 
 - name: 'Install the pre-compiled dev-packages for GEOS'
   apt:
     name:
       - 'libgeos-dev'
   become: true
-  when: (gsi_geos_support| bool == true) and (gsi_precompiled_geos|bool == true)
+  when: (gcs_geos_support| bool == true) and (gcs_precompiled_geos|bool == true)
 
 - name: 'Install lapack development files'
   apt:
     name:
       - 'liblapack-dev'
   become: true
-  when: gsi_lapack_support|bool == true
+  when: gcs_lapack_support|bool == true
 
 - name: 'Install liblas development files'
   apt:
     name:
       - 'liblas-c-dev'
   become: true
-  when: gsi_liblas_support|bool == true
+  when: gcs_liblas_support|bool == true
 
 - name: 'Install MySQL development files'
   apt:
     name:
       - 'libmysqlclient-dev'
-  when: gsi_mysql_support| bool == true
+  when: gcs_mysql_support|bool == true
 
 - name: 'Install netcdf development files'
   apt:
@@ -139,30 +194,29 @@
       - 'libnetcdf-dev'
       - 'netcdf-bin'
   become: true
-  when: gsi_netcdf_support|bool == true
+  when: gcs_netcdf_support|bool == true
 
 - name: 'Install odbc development files'
   apt:
     name:
       - 'unixodbc-dev'
   become: true
-  when: gsi_odbc_support|bool == true
+  when: gcs_odbc_support|bool == true
 
 - name: 'Install OpenCL development files'
   apt:
     name:
       - 'opencl-headers'
       - 'ocl-icd-libopencl1'
-  when: gsi_opencl_support| bool == true
+  when: gcs_opencl_support| bool == true
 
 - name: 'Install the pre-compiled dev packages for PDAL'
   apt:
     name:
       - 'libpdal-dev'
-      - 'libpdal-plugin-python'
       - 'pdal'
   become: true
-  when: gsi_precompiled_pdal|bool == true
+  when: gcs_precompiled_pdal|bool == true
 
 - name: 'Install the pre-compiled dev-packages for PROJ.4'
   apt:
@@ -171,10 +225,10 @@
       - 'proj-data'
       - 'libproj-dev'
   become: true
-  when: gsi_precompiled_proj|bool == true
+  when: gcs_precompiled_proj|bool == true
 
 - name: 'Install zstd development files'
   apt:
     name:
       - 'libzstd-dev'
-  when: gsi_zstd_support| bool == true
+  when: gcs_zstd_support| bool == true

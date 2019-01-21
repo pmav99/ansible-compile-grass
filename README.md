@@ -5,9 +5,11 @@ compile_grass
 
 An ansible role for compiling GRASS GIS from source on Ubuntu 18.04.
 
-The role also installs the latest Python 2 version and R
+Major points:
 
-All configuration options are supported.
+- Almost all configuration options are supported.
+- Both Python 2 and 3 are supported (Python 3 is the default).
+- By default it uses trunk but it should work with any 7.x branch.
 
 Quickstart
 ----------
@@ -26,11 +28,20 @@ You can install the role by using:
 Role Variables
 --------------
 
-A description of the settable variables for this role should go here, including
-any variables that are in defaults/main.yml, vars/main.yml, and any variables
-that can/should be set via parameters to the role. Any variables that are read
-from other roles and/or the global scope (ie. hostvars, group vars, etc.) should
-be mentioned here as well.
+The only mandatory variable is `gcs_builder_username`. This is the user that will own
+the directory with GRASS source and with which the compilation will be done. If you do
+not set it the playbook will not execute. If a user with the specified username does not
+exist, the playbook will create a new user account with that username.
+
+The sample playbook sets this to `builder` but you should probably use your main
+account's username.
+
+Other useful variables are `gcs_svn_branch_url` which is the URL to the Subversion branch
+that will be compiled and `gcs_python_version` which specifies the Python version which
+will be used.
+
+The rest options are pretty-much self-explanatory and you can check them out in
+`defaults/main.yml`
 
 Example Playbook
 ----------------
@@ -41,7 +52,10 @@ If you want to install grass locally you can use the following playbook:
       connection: 'local'
 
       vars:
-        gsi_builder_username: 'builder'
+        gcs_builder_username: 'builder'
+        # gcs_svn_branch_url: 'https://svn.osgeo.org/grass/grass/branches/releasebranch_7_6/'
+        gcs_svn_branch_url: 'https://svn.osgeo.org/grass/grass/trunk/'
+        gcs_python_version: 3
 
       roles:
          - role: 'pmav99.compile_grass'
