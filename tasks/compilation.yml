@@ -37,24 +37,24 @@
   changed_when: false
   become: true
 
-  # - name: 'Compile GRASS from source'
-  #   tags:
-  #     - skip_ansible_lint
-  #   # We need to use shell redirection because the output of the compilation, exceeds
-  #   # the travis log size.
-  #   shell: 'make -j{{ [ansible_processor_vcpus, gcs_no_vcpus] | min }} > compilation_output.txt 2>&1'
-  #   args:
-  #     chdir: '{{ gcs_build_dir }}/grass/'
-  #     creates: 'bin.x86_64-pc-linux-gnu/grass*'
-  #   # We need to ignore errors, because on trunk some grass module might be broken.
-  #   # Nevertheless, the grass binary should usually still be in a working state
-  #   changed_when: false
-  #   ignore_errors: true
-  #   # Compilation should be done as a normal user
-  #   become_user: '{{ gcs_builder_username }}'
-  #   become: true
-  #
-  # - name: 'Ensure that grass was actually compiled.'
-  #   stat:
-  #     path: '{{ gcs_build_dir }}/grass/bin.x86_64-pc-linux-gnu/grass*'
-  #   become: true
+- name: 'Compile GRASS from source'
+  tags:
+    - skip_ansible_lint
+  # We need to use shell redirection because the output of the compilation, exceeds
+  # the travis log size.
+  shell: 'make -j{{ [ansible_processor_vcpus, gcs_no_vcpus] | min }} > compilation_output.txt 2>&1'
+  args:
+    chdir: '{{ gcs_build_dir }}/grass/'
+    creates: 'bin.x86_64-pc-linux-gnu/grass*'
+  # We need to ignore errors, because on trunk some grass module might be broken.
+  # Nevertheless, the grass binary should usually still be in a working state
+  changed_when: false
+  ignore_errors: true
+  # Compilation should be done as a normal user
+  become_user: '{{ gcs_builder_username }}'
+  become: true
+
+- name: 'Ensure that grass was actually compiled.'
+  stat:
+    path: '{{ gcs_build_dir }}/grass/bin.x86_64-pc-linux-gnu/grass*'
+  become: true
