@@ -94,6 +94,7 @@
       - 'python-opengl'
       - 'python-dateutil'
       - 'python-numpy'
+      - 'python-matplotlib'
       - 'python-six'
       # GDAL and PDAL might be turned of on configuration but OK,
       # a package will not do so much harm...
@@ -115,6 +116,7 @@
       - 'python3-wxgtk4.0'
       - 'python3-dateutil'
       - 'python3-numpy'
+      - 'python3-matplotlib'
       - 'python3-six'
       # GDAL and PDAL might be turned of on configuration but OK,
       # a package will not do so much harm...
