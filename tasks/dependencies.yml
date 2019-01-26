@@ -30,9 +30,6 @@
 - name: 'Install prerequisites'
   apt:
     name:
-      - 'python-wxversion'
-      - 'python-wxtools'
-      - 'python-wxgtk3.0'
       - 'build-essential'
       - 'autoconf2.13'
       - 'autotools-dev'
