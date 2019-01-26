@@ -13,33 +13,33 @@ gcs_svn_branch_url: 'https://svn.osgeo.org/grass/grass/trunk/'
 gcs_python_version: 3
 
 ### GRASS configuration options
-gcs_blas_support: true
-gcs_bzip2_support: true
+gcs_blas_support: false
+gcs_bzip2_support: false
 gcs_cxx_support: true
 gcs_cairo_support: true
 gcs_fftw_support: true
 gcs_freetype_support: true
 gcs_gdal_support: true
-gcs_geos_support: true
-gcs_lapack_support: true
-gcs_liblas_support: true
-gcs_mysql_support: true
-gcs_netcdf_support: true
-gcs_nls_support: true
-gcs_odbc_support: true
+gcs_geos_support: false
+gcs_lapack_support: false
+gcs_liblas_support: false
+gcs_mysql_support: false
+gcs_netcdf_support: false
+gcs_nls_support: false
+gcs_odbc_support: false
 gcs_opencl_support: false
 gcs_opengl_support: true
-gcs_openmp_support: true
-gcs_pdal_support: true
+gcs_openmp_support: false
+gcs_pdal_support: false
 gcs_png_support: true
-gcs_pthread_support: true
-gcs_postgres_support: true
-gcs_readline_support: true
+gcs_pthread_support: false
+gcs_postgres_support: false
+gcs_readline_support: false    # This is false by default, but why?
 gcs_regex_support: true
 gcs_sqlite_support: true
 gcs_tiff_support: true
-gcs_w11_support: true
-gcs_zstd_support: true
+gcs_w11_support: false
+gcs_zstd_support: false
 
 ### Pre-compiled dependencies or not?
 # If you decide that you want to compile the dependencies yourself,
