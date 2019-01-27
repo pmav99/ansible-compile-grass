@@ -1,12 +1,26 @@
 ---
 # tasks file for compile_grass
 
-- name: 'Check out GRASS source code'
-  subversion:
-    repo: '{{ gcs_svn_branch_url }}'
-    dest: '{{ gcs_build_dir }}/grass/'
+- name: 'Copy the GRASS gui launcher script'
+  copy:
+    src: 'run_grass_gui.sh'
+    dest: '{{ gcs_build_dir }}/grass/run_grass_gui.sh'
+    owner: '{{ gcs_builder_username }}'
+    group: '{{ gcs_builder_username }}'
+    mode: '0744'
   become_user: '{{ gcs_builder_username }}'
   become: true
+
+- name: 'Copy the test launcher script'
+  copy:
+    src: 'run_tests.sh'
+    dest: '{{ gcs_build_dir }}/grass/run_tests.sh'
+    owner: '{{ gcs_builder_username }}'
+    group: '{{ gcs_builder_username }}'
+    mode: '0744'
+  become_user: '{{ gcs_builder_username }}'
+  become: true
+
 
 - name: 'Create the grass configuration script'
   template:
@@ -15,6 +29,17 @@
     owner: '{{ gcs_builder_username }}'
     group: '{{ gcs_builder_username }}'
     mode: '0744'
+  become_user: '{{ gcs_builder_username }}'
+  become: true
+
+- name: 'Create the grass compilation script'
+  template:
+    src: 'compile_grass.sh.j2'
+    dest: '{{ gcs_build_dir }}/grass/compile_grass.sh'
+    owner: '{{ gcs_builder_username }}'
+    group: '{{ gcs_builder_username }}'
+    mode: '0744'
+  become_user: '{{ gcs_builder_username }}'
   become: true
 
 - name: 'Configure GRASS from source'
@@ -40,9 +65,7 @@
 - name: 'Compile GRASS from source'
   tags:
     - skip_ansible_lint
-  # We need to use shell redirection because the output of the compilation, exceeds
-  # the travis log size.
-  shell: 'make -j{{ [ansible_processor_vcpus, gcs_no_vcpus] | min }} > compilation_output.txt 2>&1'
+  command: '{{ gcs_build_dir }}/grass/compile_grass.sh'
   args:
     chdir: '{{ gcs_build_dir }}/grass/'
     creates: 'bin.x86_64-pc-linux-gnu/grass*'

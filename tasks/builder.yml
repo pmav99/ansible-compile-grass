@@ -44,22 +44,22 @@
 # Your mileage may vary though...
 # TODO if we end up using a virtualenv, we will probably have to do
 # something like this: https://stackoverflow.com/a/20572360/592289
-- name: 'Create $HOME/.local/bin'
-  file:
-    path: '/home/{{ gcs_builder_username }}/.local/bin/'
-    owner: '{{ gcs_builder_username }}'
-    group: '{{ gcs_builder_username }}'
-    state: 'directory'
-  changed_when: false
-  become: true
-
-- name: 'Add a link from /usr/bin/python3 -> $HOME/.local/bin/python'
-  file:
-    src: '/usr/bin/python3'
-    dest: '/home/{{ gcs_builder_username }}/.local/bin/python'
-    owner: '{{ gcs_builder_username }}'
-    group: '{{ gcs_builder_username }}'
-    state: 'link'
-  when: gcs_python_version == 3
-  changed_when: false
-  become: true
+# - name: 'Create $HOME/.local/bin'
+#   file:
+#     path: '/home/{{ gcs_builder_username }}/.local/bin/'
+#     owner: '{{ gcs_builder_username }}'
+#     group: '{{ gcs_builder_username }}'
+#     state: 'directory'
+#   changed_when: false
+#   become: true
+#
+# - name: 'Add a link from /usr/bin/python3 -> $HOME/.local/bin/python'
+#   file:
+#     src: '/usr/bin/python3'
+#     dest: '/home/{{ gcs_builder_username }}/.local/bin/python'
+#     owner: '{{ gcs_builder_username }}'
+#     group: '{{ gcs_builder_username }}'
+#     state: 'link'
+#   when: gcs_python_version|int == 3
+#   changed_when: false
+#   become: true
