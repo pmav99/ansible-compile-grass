@@ -5,6 +5,7 @@
 
   vars:
     gcs_builder_username: 'builder'
+    gcs_python_version: "{{ lookup('env', 'TESTED_PYTHON_VERSION') }}"
 
   pre_tasks:
     - name: 'Update apt cache'

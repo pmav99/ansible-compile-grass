@@ -4,6 +4,11 @@ language: python
 services:
   - docker
 
+matrix:
+  include:
+    - env: TESTED_PYTHON_VERSION=2
+    - env: TESTED_PYTHON_VERSION=3
+
 env:
   global:
     - ROLE_NAME: compile_grass

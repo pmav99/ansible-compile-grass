@@ -10,7 +10,7 @@
 - name: 'PDAL support is not available for python3 unless we compile from source'
   set_fact:
     gcs_pdal_support: false
-  when: gcs_python_version == 3
+  when: gcs_python_version|int == 3
 
 - name: 'Add ppa:deadsnakes/ppa repo (for newer python versions)'
   apt_repository:
@@ -97,7 +97,7 @@
       # a package will not do so much harm...
       - 'python-gdal'
       - 'libpdal-plugin-python'
-  when: gcs_python_version == 2
+  when: gcs_python_version|int == 2
   become: true
 
 - name: 'Install python 3 dependencies'
@@ -118,7 +118,7 @@
       # GDAL and PDAL might be turned of on configuration but OK,
       # a package will not do so much harm...
       - 'python3-gdal'
-  when: gcs_python_version == 3
+  when: gcs_python_version|int == 3
   become: true
 
 - name: 'Install BLAS development files'
