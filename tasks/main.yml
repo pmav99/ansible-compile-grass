@@ -2,6 +2,12 @@
 
 ---
 
+# Sanity check
+- name: 'Ensure that the specified Python version is either "2" or "3"'
+  assert:
+    that: (gcs_python_version|int == 2) or (gcs_python_version|int == 3)
+    msg: 'Python version needs to be either 2 or 3, not: {{ gcs_python_version }}'
+
 - import_tasks: 'builder.yml'
 
 - import_tasks: 'dependencies.yml'

@@ -1,12 +1,6 @@
 ---
 # tasks file for compile_grass
 
-
-- name: 'Ensure that the specified Python version is either "2" or "3"'
-  assert:
-    that: (gcs_python_version == 2) or (gcs_python_version == 3)
-    msg: 'Python version needs to be either 2 or 3, not: {{ gcs_python_version }}'
-
 - name: 'PDAL support is not available for python3 unless we compile from source'
   set_fact:
     gcs_pdal_support: false
