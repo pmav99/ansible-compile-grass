@@ -2,6 +2,6 @@
 # Run compilation inside the virtualenv
 #
 
-cd {{ gcs_build_dir }}/grass
+cd {{ gcs_source_dir }}/grass
 source venv/bin/activate
 exec make -j{{ [ansible_processor_vcpus, gcs_no_vcpus] | min }} > compilation_output.txt 2>&1

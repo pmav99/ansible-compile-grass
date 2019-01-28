@@ -5,7 +5,7 @@ gcs_builder_shell: '/bin/bash'
 gcs_builder_password: '$6$SjzEETi/JfTKV1$KgJ22MKMWOTez0Aq3e2pR0MwUJglnel/VHhxXuadGU.XmBARG/AjZ.Aw9c.VAPiW5yXiWButnOi4hMqjMKnGB1'
 
 ### Directories
-gcs_build_dir: '/usr/local/src'
+gcs_source_dir: '/usr/local/src'
 
 ### Program versions
 # gcs_svn_branch_url: 'https://svn.osgeo.org/grass/grass/branches/releasebranch_7_6/'

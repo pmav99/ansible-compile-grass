@@ -210,14 +210,14 @@
 - name: 'Check out GRASS source code'
   subversion:
     repo: '{{ gcs_svn_branch_url }}'
-    dest: '{{ gcs_build_dir }}/grass/'
+    dest: '{{ gcs_source_dir }}/grass/'
   become_user: '{{ gcs_builder_username }}'
   become: true
 
 - name: 'Copy requirements.txt inside the repo.'
   template:
     src: 'requirements.txt.j2'
-    dest: '{{ gcs_build_dir }}/grass/requirements.txt'
+    dest: '{{ gcs_source_dir }}/grass/requirements.txt'
     owner: '{{ gcs_builder_username }}'
     group: '{{ gcs_builder_username }}'
     mode: '0644'
@@ -226,8 +226,8 @@
 
 - name: 'Create virtualenv and install python dependencies'
   pip:
-    requirements: '{{ gcs_build_dir }}/grass/requirements.txt'
-    virtualenv: '{{ gcs_build_dir }}/grass/venv'
+    requirements: '{{ gcs_source_dir }}/grass/requirements.txt'
+    virtualenv: '{{ gcs_source_dir }}/grass/venv'
     virtualenv_python: '/usr/bin/python{{ gcs_python_version }}'
     virtualenv_site_packages: false
   become_user: '{{ gcs_builder_username }}'
@@ -236,7 +236,7 @@
 # - name: 'Install pdal'
 #   pip:
 #     name: pdal
-#     virtualenv: '{{ gcs_build_dir }}/venv'
+#     virtualenv: '{{ gcs_source_dir }}/venv'
 #     virtualenv_python: '/usr/bin/python{{ gcs_python_version }}'
 #     virtualenv_site_packages: false
 #   when: gcs_precompiled_pdal|bool == true

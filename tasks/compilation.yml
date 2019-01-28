@@ -4,7 +4,7 @@
 - name: 'Copy the GRASS gui launcher script'
   copy:
     src: 'run_gui.sh'
-    dest: '{{ gcs_build_dir }}/grass/run_gui.sh'
+    dest: '{{ gcs_source_dir }}/grass/run_gui.sh'
     owner: '{{ gcs_builder_username }}'
     group: '{{ gcs_builder_username }}'
     mode: '0744'
@@ -14,7 +14,7 @@
 - name: 'Copy the test launcher script'
   copy:
     src: 'run_tests.sh'
-    dest: '{{ gcs_build_dir }}/grass/run_tests.sh'
+    dest: '{{ gcs_source_dir }}/grass/run_tests.sh'
     owner: '{{ gcs_builder_username }}'
     group: '{{ gcs_builder_username }}'
     mode: '0744'
@@ -25,7 +25,7 @@
 - name: 'Create the grass configuration script'
   template:
     src: 'configure_grass.sh.j2'
-    dest: '{{ gcs_build_dir }}/grass/configure_grass.sh'
+    dest: '{{ gcs_source_dir }}/grass/configure_grass.sh'
     owner: '{{ gcs_builder_username }}'
     group: '{{ gcs_builder_username }}'
     mode: '0744'
@@ -35,7 +35,7 @@
 - name: 'Create the grass compilation script'
   template:
     src: 'compile_grass.sh.j2'
-    dest: '{{ gcs_build_dir }}/grass/compile_grass.sh'
+    dest: '{{ gcs_source_dir }}/grass/compile_grass.sh'
     owner: '{{ gcs_builder_username }}'
     group: '{{ gcs_builder_username }}'
     mode: '0744'
@@ -43,7 +43,7 @@
   become: true
 
 - name: 'Configure GRASS from source'
-  command: '{{ gcs_build_dir }}/grass/configure_grass.sh'
+  command: '{{ gcs_source_dir }}/grass/configure_grass.sh'
   changed_when: false
   become_user: '{{ gcs_builder_username }}'
   become: true
@@ -51,23 +51,23 @@
 - name: 'Cleanup output of previous compilations 1/2'
   command: 'make cleandistdirs'
   args:
-    chdir: '{{ gcs_build_dir }}/grass/'
+    chdir: '{{ gcs_source_dir }}/grass/'
   changed_when: false
   become: true
 
 - name: 'Cleanup output of previous compilations 2/2'
   file:
     state: absent
-    path: '{{ gcs_build_dir }}/grass/compilation_output.txt'
+    path: '{{ gcs_source_dir }}/grass/compilation_output.txt'
   changed_when: false
   become: true
 
 - name: 'Compile GRASS from source'
   tags:
     - skip_ansible_lint
-  command: '{{ gcs_build_dir }}/grass/compile_grass.sh'
+  command: '{{ gcs_source_dir }}/grass/compile_grass.sh'
   args:
-    chdir: '{{ gcs_build_dir }}/grass/'
+    chdir: '{{ gcs_source_dir }}/grass/'
     creates: 'bin.x86_64-pc-linux-gnu/grass*'
   # We need to ignore errors, because on trunk some grass module might be broken.
   # Nevertheless, the grass binary should usually still be in a working state
@@ -79,5 +79,5 @@
 
 - name: 'Ensure that grass was actually compiled.'
   stat:
-    path: '{{ gcs_build_dir }}/grass/bin.x86_64-pc-linux-gnu/grass*'
+    path: '{{ gcs_source_dir }}/grass/bin.x86_64-pc-linux-gnu/grass*'
   become: true

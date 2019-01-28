@@ -29,7 +29,7 @@
 
 - name: 'Create the build directory and ensure our "builder" account has write permissions'
   file:
-    path: '{{ gcs_build_dir }}'
+    path: '{{ gcs_source_dir }}'
     state: 'directory'
     owner: '{{ gcs_builder_username }}'
     group: '{{ gcs_builder_username }}'
