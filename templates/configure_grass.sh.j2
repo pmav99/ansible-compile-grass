@@ -4,9 +4,9 @@ set euo -pipefail
 
 cd {{ gcs_build_dir }}/grass
 
-CFLAGS='{{ gcs_cflags }}' \
-CXXFLAGS='{{ gcs_cxxflags }}' \
-LDFLAGS='{{ gcs_ldflags }}' \
+export CFLAGS='{{ gcs_cflags }}'
+export CXXFLAGS='{{ gcs_cxxflags }}'
+export LDFLAGS='{{ gcs_ldflags }}'
 ./configure \
     --host=x86_64-linux-gnu \
     --build=x86_64-linux-gnu \
@@ -56,7 +56,7 @@ LDFLAGS='{{ gcs_ldflags }}' \
         {%- endif -%}
     {% else -%}
         --without-geos \
-    {%- endif -%}
+    {%- endif %}
     {# OpenCL -#}
     {% if gcs_opencl_support -%}
     --with-opencl \
@@ -84,7 +84,7 @@ LDFLAGS='{{ gcs_ldflags }}' \
     {% endif %}
     {# PROJ -#}
     {% if gcs_precompiled_proj -%}
-    --with-proj-share=/usr/share/proj \
+    --with-proj-share=/usr/share/proj
     {% else -%}
-    --with-proj-share=/usr/local/share/proj \
+    --with-proj-share=/usr/local/share/proj
     {% endif %}
