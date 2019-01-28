@@ -52,15 +52,15 @@ need to activate the virtualenv and set `$PATH`.  To make this a bit easier, the
 also installs some scripts that take care of `$PATH` and virtualenv activation. These
 scripts are:
 
-- `configure_grass.sh`
-- `compile_grass.sh`
+- `do_configure.sh`
+- `do_compile.sh`
 - `run_gui.sh`
 - `run_tests.sh`
 
 You will find these scripts inside the checked out SVN repo.
 
 So, after you make a change in the source code, all you have to do is to run
-`./compile_grass.sh` followed by `./run_gui.sh` or `./run_tests.sh`.
+`./do_compile.sh` followed by `./run_gui.sh` or `./run_tests.sh`.
 
 So simple :)
 

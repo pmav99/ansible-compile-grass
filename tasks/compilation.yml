@@ -24,8 +24,8 @@
 
 - name: 'Create the grass configuration script'
   template:
-    src: 'configure_grass.sh.j2'
-    dest: '{{ gcs_source_dir }}/grass/configure_grass.sh'
+    src: 'do_configure.sh.j2'
+    dest: '{{ gcs_source_dir }}/grass/do_configure.sh'
     owner: '{{ gcs_account_username }}'
     group: '{{ gcs_account_username }}'
     mode: '0744'
@@ -34,8 +34,8 @@
 
 - name: 'Create the grass compilation script'
   template:
-    src: 'compile_grass.sh.j2'
-    dest: '{{ gcs_source_dir }}/grass/compile_grass.sh'
+    src: 'do_compile.sh.j2'
+    dest: '{{ gcs_source_dir }}/grass/do_compile.sh'
     owner: '{{ gcs_account_username }}'
     group: '{{ gcs_account_username }}'
     mode: '0744'
@@ -43,7 +43,7 @@
   become: true
 
 - name: 'Configure GRASS from source'
-  command: '{{ gcs_source_dir }}/grass/configure_grass.sh'
+  command: '{{ gcs_source_dir }}/grass/do_configure.sh'
   changed_when: false
   become_user: '{{ gcs_account_username }}'
   become: true
@@ -65,7 +65,7 @@
 - name: 'Compile GRASS from source'
   tags:
     - skip_ansible_lint
-  command: '{{ gcs_source_dir }}/grass/compile_grass.sh'
+  command: '{{ gcs_source_dir }}/grass/do_compile.sh'
   args:
     chdir: '{{ gcs_source_dir }}/grass/'
     creates: 'bin.x86_64-pc-linux-gnu/grass*'
