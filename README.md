@@ -24,8 +24,8 @@ When to use
 The main usecase for this role is to kickstart the creation of a GRASS GIS development
 environment.
 
-Apart from that, you can also use this role in order to deploy a customised GRASS
-GIS Installation on one or more servers.
+Apart from that, you can also use this role in order to deploy customised GRASS
+GIS Installations on one or more servers.
 
 Requirements
 ------------
@@ -37,14 +37,32 @@ One. You will also need ansible 2.7 which must be installed from a ppa. Instruct
 Quickstart
 ----------
 
-If you are OK with the defaults, this is all you need to do:
+If you are OK with the defaults (i.e. build as your current user, using Python 3,
+cloning the repo at `~/src/grass`), this is all you need to do:
 
-    ansible-galaxy install pmav99.compile_grass             # install the role from ansible-galaxy
-    wget https://git.io/fh8FY -O compile_grass.yml          # donwload the sample playbook-file
-    ansible-playbook compile_grass.yml --ask-become-pass    # run the playbook. It will ask you for the sudo password
+    curl -Ssl https://raw.githubusercontent.com/pmav99/ansible-role-compile_grass/master/quickstart.sh | bash
 
-That being said, the defaults are often not what you want so reading the detailed
-instructions would be a good idea.
+That being said, also reading the detailed instructions would not be a bad idea)
+
+What to do after installing
+---------------------------
+
+Due to the way we install the python dependencies, in order to use GRASS you will first
+need to activate the virtualenv and or set `$PATH`.  To make this a bit easier, the role
+also installs some scripts that take care of `$PATH` and virtualenv activation. These
+scripts are:
+
+- `configure_grass.sh`
+- `compile_grass.sh`
+- `run_gui.sh`
+- `run_tests.sh`
+
+You will find these scripts inside the checked out SVN repo.
+
+So, after you make a change in the source code, all you have to do is to run
+`./compile_grass.sh` followed by `./run_gui.sh` or `./run_tests.sh`.
+
+So simple :)
 
 Detailed Instructions
 ---------------------
@@ -65,9 +83,10 @@ file.  This is a sample playbook that that runs the role on the local machine.
 
       vars:
         gcs_builder_username: 'builder'
+        gcs_source_dir: '/home/builder/src'
+        gcs_python_version: 3
         # gcs_svn_branch_url: 'https://svn.osgeo.org/grass/grass/branches/releasebranch_7_6/'
         gcs_svn_branch_url: 'https://svn.osgeo.org/grass/grass/trunk/'
-        gcs_python_version: 3
 
       roles:
          - role: 'pmav99.compile_grass'
@@ -95,7 +114,7 @@ The [sample
 playbook](https://github.com/pmav99/ansible-role-compile_grass/blob/master/compile_grass.yml)
 sets the username to `builder` but you should probably use your main account's username.
 
-Other useful variables are `gcs_svn_branch_url` which is the URL to the Subversion branch
+You can change the location Other useful variables are `gcs_svn_branch_url` which is the URL to the Subversion branch
 that will be compiled and `gcs_python_version` which specifies the Python version which
 will be used (defaults to 3).
 
