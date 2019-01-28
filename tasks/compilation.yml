@@ -3,8 +3,8 @@
 
 - name: 'Copy the GRASS gui launcher script'
   copy:
-    src: 'run_grass_gui.sh'
-    dest: '{{ gcs_build_dir }}/grass/run_grass_gui.sh'
+    src: 'run_gui.sh'
+    dest: '{{ gcs_build_dir }}/grass/run_gui.sh'
     owner: '{{ gcs_builder_username }}'
     group: '{{ gcs_builder_username }}'
     mode: '0744'
