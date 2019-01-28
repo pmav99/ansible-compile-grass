@@ -14,7 +14,7 @@ Running this will:
 
 **Major points**:
 
-- Almost all configuration options are supported (except `OpenDWG` and `OpenCL`).
+- Almost all configuration options are supported.
 - Both Python 2 and 3 are supported (Python 3 is the default).
 - By default it uses trunk but it should work with any 7.x branch.
 
@@ -24,7 +24,7 @@ When to use
 The main usecase for this role is to kickstart the creation of a GRASS GIS development
 environment.
 
-But, apart from that, you can also use this role in order to deploy a customised GRASS
+Apart from that, you can also use this role in order to deploy a customised GRASS
 GIS Installation on one or more servers.
 
 Requirements
@@ -51,42 +51,14 @@ Detailed Instructions
 
 ### Install the role
 
-You can install the role by using:
+You can install the role by running:
 
     ansible-galaxy install pmav99.compile_grass
 
-### Role Variables
+### Sample Playbook
 
-The only mandatory variable is `gcs_builder_username`. This is the user that will own
-the directory with GRASS source and with which the compilation will be done. If you do
-not set it the playbook will not execute. If a user with the specified username does not
-exist, the playbook will create a new user account with that username. The password for
-the new user will be 1234 (you can set that too using `gcs_builder_password`).
-
-The [sample
-playbook](https://github.com/pmav99/ansible-role-compile_grass/blob/master/compile_grass.yml)
-sets the username to `builder` but you should probably use your main account's username.
-
-Other useful variables are `gcs_svn_branch_url` which is the URL to the Subversion branch
-that will be compiled and `gcs_python_version` which specifies the Python version which
-will be used.
-
-#### Compilation options
-
-By default, the role uses the same defaults as the `configure` script. You can change
-that though by setting the appropriate variables to `true`. E.g. to enable MySQL and
-ODBC support you need:
-
-```
-        gcs_mysql_support: true
-        gcs_odbc_support: true
-```
-
-The full list of options cah be found at
-[`defaults/main.yml`](https://github.com/pmav99/ansible-role-compile_grass/blob/master/defaults/main.yml)
-
-Sample Playbook
-----------------
+After installing the role, in order to use it you need a "playbook" which is a yaml
+file.  This is a sample playbook that that runs the role on the local machine.
 
     - hosts: '127.0.0.1'
       connection: 'local'
@@ -101,9 +73,45 @@ Sample Playbook
          - role: 'pmav99.compile_grass'
            become: true
 
-You can run it with:
+After saving the playbook as `playbook.yml`, you can run it with:
 
     ansible-playbook playbook.yml --ask-become-pass
+
+This command will ask you for your sudo password, and start executing the various tasks.
+
+### Role Variables
+
+In order to customize what the playbook will do, you need to edit the playbook and
+modify the keys and the values of variables defined in `vars`.
+
+The only mandatory variable is `gcs_builder_username`. This defines the name of the user
+that will do own the directory with the GRASS source and with which the compilation will
+be done. If you do not set it the playbook will not execute. If a user with the
+specified username does not exist, the playbook will create a new user account with that
+username.  The password for the new user will be 1234 (you can set that too using
+`gcs_builder_password`).
+
+The [sample
+playbook](https://github.com/pmav99/ansible-role-compile_grass/blob/master/compile_grass.yml)
+sets the username to `builder` but you should probably use your main account's username.
+
+Other useful variables are `gcs_svn_branch_url` which is the URL to the Subversion branch
+that will be compiled and `gcs_python_version` which specifies the Python version which
+will be used (defaults to 3).
+
+#### Compilation options
+
+By default, the role uses the same defaults as the `configure` script. You can change
+that though by setting the appropriate variables to `true`. E.g. to enable MySQL and
+ODBC support you need:
+
+```
+        gcs_mysql_support: true
+        gcs_odbc_support: true
+```
+
+The full list of options can be found at
+[`defaults/main.yml`](https://github.com/pmav99/ansible-role-compile_grass/blob/master/defaults/main.yml).
 
 License
 -------
