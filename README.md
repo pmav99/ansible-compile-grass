@@ -21,11 +21,11 @@ Running this will:
 When to use
 -----------
 
-The main usecase for this role is to kickstart the creation of a GRASS GIS development
-environment.
+The main usecase is to kickstart the creation of a GRASS GIS development environment.
 
-Apart from that, you can also use this role in order to deploy customised GRASS
-GIS Installations on one or more servers.
+That being said, the role can also be used to deploy GRASS GIS on e.g. servers. Arguably, there
+are more suitable solutions for such a usecase, but if you don't care too much about
+deployment times, you can still use it.
 
 Requirements
 ------------
@@ -45,25 +45,32 @@ cloning the repo at `~/src/grass`), this is all you need to do:
 Depending on your internet connection and the CPU power of your VM, the whole procedure
 should last 10-30 minutes.
 
+That's all! :)
+
 What to do after installing
 ---------------------------
 
 Due to the way we install the python dependencies, in order to use GRASS you will first
-need to activate the virtualenv and set `$PATH`.  To make this a bit easier, the role
-also installs some scripts that take care of `$PATH` and virtualenv activation. These
-scripts are:
+need to activate the virtualenv and add the grass binary to `$PATH`.  To make this a bit
+easier, the role also installs some scripts that take care of `$PATH` and virtualenv
+activation. These scripts are:
 
 - `do_configure.sh`
 - `do_compile.sh`
-- `run_grass.sh`
-- `run_tests.sh`
+- `run_grass.sh` which executes the grass binary. The script passes along any CLI
+    arguments to the grass binary (e.g. `--text`, `--help`, etc)
+- `run_tests.sh` which runs the tests in `testsuite/examples`.
 
 You will find these scripts inside the checked out SVN repo.
 
 So, after you make a change in the source code, all you have to do is to run
 `./do_compile.sh` followed by `./run_grass.sh` or `./run_tests.sh`.
 
-So simple :)
+If you don't want to use the scripts, remember to activate the virtualenv:
+
+```
+source venv/bin/activate
+```
 
 Detailed Instructions
 ---------------------
@@ -99,10 +106,14 @@ After saving the playbook as `playbook.yml`, you can run it with:
 
 This command will ask you for your sudo password, and start executing the various tasks.
 
-### Role Variables
+In order to customize what the role will do, you need to edit the playbook file and
+modify the keys and the values of variables defined in the `vars` section.
 
-In order to customize what the playbook will do, you need to edit the playbook and
-modify the keys and the values of variables defined in `vars`.
+Note: In order to execute the role in the local machine, `vars` is the **only** section
+of the playbook file you need to modify. If you need to execute the role on a remote
+machine, you should learn some ansible first :)
+
+### Role Variables
 
 The only mandatory variable is `gcs_account_username`. This defines the name of the user
 that will do own the directory with the GRASS source and with which the compilation will
