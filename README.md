@@ -5,9 +5,17 @@ compile_grass
 
 An ansible role for compiling GRASS GIS from source on Ubuntu 18.04.
 
-Major points:
+Running this will:
 
-- Almost all configuration options are supported.
+- install all dependencies needed for compiling and running GRASS GIS
+- checkout the source code
+- create a virtualenv in the source code directory and install all the python
+    dependencies
+- compile GRASS GIS
+
+**Major points**:
+
+- Almost all configuration options are supported (except `OpenDWG` and `OpenCL`).
 - Both Python 2 and 3 are supported (Python 3 is the default).
 - By default it uses trunk but it should work with any 7.x branch.
 
@@ -33,17 +41,29 @@ Role Variables
 The only mandatory variable is `gcs_builder_username`. This is the user that will own
 the directory with GRASS source and with which the compilation will be done. If you do
 not set it the playbook will not execute. If a user with the specified username does not
-exist, the playbook will create a new user account with that username. The password for 
+exist, the playbook will create a new user account with that username. The password for
 the new user will be 1234 (you can set that too using `gcs_builder_password`).
 
-The [sample playbook](https://github.com/pmav99/ansible-role-compile_grass/blob/master/compile_grass.yml)
+The [sample
+playbook](https://github.com/pmav99/ansible-role-compile_grass/blob/master/compile_grass.yml)
 sets the username to `builder` but you should probably use your main account's username.
 
 Other useful variables are `gcs_svn_branch_url` which is the URL to the Subversion branch
 that will be compiled and `gcs_python_version` which specifies the Python version which
 will be used.
 
-The rest options are pretty-much self-explanatory and you can check them out in
+### Compilation options
+
+By default, the role uses the same defaults as the `configure` script. You can change
+that though by setting the appropriate variables to `true`. E.g. to enable MySQL and
+ODBC support you need:
+
+```
+        gcs_mysql_support: true
+        gcs_odbc_support: true
+```
+
+The full list of options cah be found at
 [`defaults/main.yml`](https://github.com/pmav99/ansible-role-compile_grass/blob/master/defaults/main.yml)
 
 Sample Playbook
