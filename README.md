@@ -55,13 +55,13 @@ scripts are:
 
 - `do_configure.sh`
 - `do_compile.sh`
-- `run_gui.sh`
+- `run_grass.sh`
 - `run_tests.sh`
 
 You will find these scripts inside the checked out SVN repo.
 
 So, after you make a change in the source code, all you have to do is to run
-`./do_compile.sh` followed by `./run_gui.sh` or `./run_tests.sh`.
+`./do_compile.sh` followed by `./run_grass.sh` or `./run_tests.sh`.
 
 So simple :)
 
