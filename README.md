@@ -42,7 +42,8 @@ cloning the repo at `~/src/grass`), this is all you need to do:
 
     curl -Ssl https://raw.githubusercontent.com/pmav99/ansible-role-compile_grass/master/quickstart.sh | bash
 
-That being said, also reading the detailed instructions would not be a bad idea)
+Depending on your internet connection and the CPU power of your VM, the whole procedure
+should last 10-30 minutes.
 
 What to do after installing
 ---------------------------
@@ -135,8 +136,19 @@ The full list of options can be found at
 
 ### Troubleshooting
 
+#### Running
+
+If you see a message like the following:
+```
+fatal: [127.0.0.1]: FAILED! => {"changed": false, "module_stderr": "sudo: a password is required\n", "module_stdout": "", "msg": "MODULE FAILURE", "rc": 1}
+```
+Then you forgot to use `--ask-become-pass`
+
+#### Compilation
+
 You will find the compilation output in `compilation_output.txt` inside the repository
-directory.
+directory. For the record, we had to redirect it to a file because the output surpassed
+the limits imposed by Travis.
 
 License
 -------
