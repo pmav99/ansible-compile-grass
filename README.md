@@ -48,7 +48,7 @@ What to do after installing
 ---------------------------
 
 Due to the way we install the python dependencies, in order to use GRASS you will first
-need to activate the virtualenv and or set `$PATH`.  To make this a bit easier, the role
+need to activate the virtualenv and set `$PATH`.  To make this a bit easier, the role
 also installs some scripts that take care of `$PATH` and virtualenv activation. These
 scripts are:
 
@@ -114,9 +114,10 @@ The [sample
 playbook](https://github.com/pmav99/ansible-role-compile_grass/blob/master/compile_grass.yml)
 sets the username to `builder` but you should probably use your main account's username.
 
-You can change the location Other useful variables are `gcs_svn_branch_url` which is the URL to the Subversion branch
-that will be compiled and `gcs_python_version` which specifies the Python version which
-will be used (defaults to 3).
+You can set the location of the GRASS repository with `gcs_source_dir`. Other useful
+variables are `gcs_svn_branch_url` which is the URL to the Subversion branch that will
+be compiled and `gcs_python_version` which specifies the Python version which will be
+used (defaults to Python 3).
 
 #### Compilation options
 
