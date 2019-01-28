@@ -133,6 +133,11 @@ ODBC support you need:
 The full list of options can be found at
 [`defaults/main.yml`](https://github.com/pmav99/ansible-role-compile_grass/blob/master/defaults/main.yml).
 
+### Troubleshooting
+
+You will find the compilation output in `compilation_output.txt` inside the repository
+directory.
+
 License
 -------
 
