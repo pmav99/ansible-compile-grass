@@ -82,7 +82,7 @@ file.  This is a sample playbook that that runs the role on the local machine.
       connection: 'local'
 
       vars:
-        gcs_builder_username: 'builder'
+        gcs_account_username: 'builder'
         gcs_source_dir: '/home/builder/src'
         gcs_python_version: 3
         # gcs_svn_branch_url: 'https://svn.osgeo.org/grass/grass/branches/releasebranch_7_6/'
@@ -103,12 +103,12 @@ This command will ask you for your sudo password, and start executing the variou
 In order to customize what the playbook will do, you need to edit the playbook and
 modify the keys and the values of variables defined in `vars`.
 
-The only mandatory variable is `gcs_builder_username`. This defines the name of the user
+The only mandatory variable is `gcs_account_username`. This defines the name of the user
 that will do own the directory with the GRASS source and with which the compilation will
 be done. If you do not set it the playbook will not execute. If a user with the
 specified username does not exist, the playbook will create a new user account with that
 username.  The password for the new user will be 1234 (you can set that too using
-`gcs_builder_password`).
+`gcs_account_password`).
 
 The [sample
 playbook](https://github.com/pmav99/ansible-role-compile_grass/blob/master/compile_grass.yml)

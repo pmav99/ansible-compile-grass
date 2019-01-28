@@ -1,8 +1,8 @@
 ---
 # defaults file for compile_grass
-gcs_builder_username: ''
-gcs_builder_shell: '/bin/bash'
-gcs_builder_password: '$6$SjzEETi/JfTKV1$KgJ22MKMWOTez0Aq3e2pR0MwUJglnel/VHhxXuadGU.XmBARG/AjZ.Aw9c.VAPiW5yXiWButnOi4hMqjMKnGB1'
+gcs_account_username: ''
+gcs_account_shell: '/bin/bash'
+gcs_account_password: '$6$SjzEETi/JfTKV1$KgJ22MKMWOTez0Aq3e2pR0MwUJglnel/VHhxXuadGU.XmBARG/AjZ.Aw9c.VAPiW5yXiWButnOi4hMqjMKnGB1'
 
 ### Directories
 gcs_source_dir: '/usr/local/src'

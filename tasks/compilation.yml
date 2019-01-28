@@ -5,20 +5,20 @@
   copy:
     src: 'run_gui.sh'
     dest: '{{ gcs_source_dir }}/grass/run_gui.sh'
-    owner: '{{ gcs_builder_username }}'
-    group: '{{ gcs_builder_username }}'
+    owner: '{{ gcs_account_username }}'
+    group: '{{ gcs_account_username }}'
     mode: '0744'
-  become_user: '{{ gcs_builder_username }}'
+  become_user: '{{ gcs_account_username }}'
   become: true
 
 - name: 'Copy the test launcher script'
   copy:
     src: 'run_tests.sh'
     dest: '{{ gcs_source_dir }}/grass/run_tests.sh'
-    owner: '{{ gcs_builder_username }}'
-    group: '{{ gcs_builder_username }}'
+    owner: '{{ gcs_account_username }}'
+    group: '{{ gcs_account_username }}'
     mode: '0744'
-  become_user: '{{ gcs_builder_username }}'
+  become_user: '{{ gcs_account_username }}'
   become: true
 
 
@@ -26,26 +26,26 @@
   template:
     src: 'configure_grass.sh.j2'
     dest: '{{ gcs_source_dir }}/grass/configure_grass.sh'
-    owner: '{{ gcs_builder_username }}'
-    group: '{{ gcs_builder_username }}'
+    owner: '{{ gcs_account_username }}'
+    group: '{{ gcs_account_username }}'
     mode: '0744'
-  become_user: '{{ gcs_builder_username }}'
+  become_user: '{{ gcs_account_username }}'
   become: true
 
 - name: 'Create the grass compilation script'
   template:
     src: 'compile_grass.sh.j2'
     dest: '{{ gcs_source_dir }}/grass/compile_grass.sh'
-    owner: '{{ gcs_builder_username }}'
-    group: '{{ gcs_builder_username }}'
+    owner: '{{ gcs_account_username }}'
+    group: '{{ gcs_account_username }}'
     mode: '0744'
-  become_user: '{{ gcs_builder_username }}'
+  become_user: '{{ gcs_account_username }}'
   become: true
 
 - name: 'Configure GRASS from source'
   command: '{{ gcs_source_dir }}/grass/configure_grass.sh'
   changed_when: false
-  become_user: '{{ gcs_builder_username }}'
+  become_user: '{{ gcs_account_username }}'
   become: true
 
 - name: 'Cleanup output of previous compilations 1/2'
@@ -74,7 +74,7 @@
   changed_when: false
   ignore_errors: true
   # Compilation should be done as a normal user
-  become_user: '{{ gcs_builder_username }}'
+  become_user: '{{ gcs_account_username }}'
   become: true
 
 - name: 'Ensure that grass was actually compiled.'

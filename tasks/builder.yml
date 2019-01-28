@@ -3,8 +3,8 @@
 
 - name: 'Ensure that the "builder" user account has been defined'
   assert:
-    that: 'gcs_builder_username != ""'
-    msg: 'You must define a builder user account. Set `gcs_builder_username` in the playbook file or provide its value via --extra-vars'
+    that: 'gcs_account_username != ""'
+    msg: 'You must define a builder user account. Set `gcs_account_username` in the playbook file or provide its value via --extra-vars'
 
 - name: 'Get list of existing users'
   getent:
@@ -17,22 +17,22 @@
 
 - name: 'Create "builder" user account'
   user:
-    name: '{{ gcs_builder_username }}'
+    name: '{{ gcs_account_username }}'
     groups: 'sudo'
     append: true
-    shell: '{{ gcs_builder_shell }}'
+    shell: '{{ gcs_account_shell }}'
     state: 'present'
-    password: '{{ gcs_builder_password }}'
+    password: '{{ gcs_account_password }}'
     update_password: 'on_create'
-  when: gcs_builder_username not in ansible_facts.getent_passwd
+  when: gcs_account_username not in ansible_facts.getent_passwd
   become: true
 
 - name: 'Create the build directory and ensure our "builder" account has write permissions'
   file:
     path: '{{ gcs_source_dir }}'
     state: 'directory'
-    owner: '{{ gcs_builder_username }}'
-    group: '{{ gcs_builder_username }}'
+    owner: '{{ gcs_account_username }}'
+    group: '{{ gcs_account_username }}'
     mode: '0755'
   become: true
 
@@ -46,9 +46,9 @@
 # something like this: https://stackoverflow.com/a/20572360/592289
 # - name: 'Create $HOME/.local/bin'
 #   file:
-#     path: '/home/{{ gcs_builder_username }}/.local/bin/'
-#     owner: '{{ gcs_builder_username }}'
-#     group: '{{ gcs_builder_username }}'
+#     path: '/home/{{ gcs_account_username }}/.local/bin/'
+#     owner: '{{ gcs_account_username }}'
+#     group: '{{ gcs_account_username }}'
 #     state: 'directory'
 #   changed_when: false
 #   become: true
@@ -56,9 +56,9 @@
 # - name: 'Add a link from /usr/bin/python3 -> $HOME/.local/bin/python'
 #   file:
 #     src: '/usr/bin/python3'
-#     dest: '/home/{{ gcs_builder_username }}/.local/bin/python'
-#     owner: '{{ gcs_builder_username }}'
-#     group: '{{ gcs_builder_username }}'
+#     dest: '/home/{{ gcs_account_username }}/.local/bin/python'
+#     owner: '{{ gcs_account_username }}'
+#     group: '{{ gcs_account_username }}'
 #     state: 'link'
 #   when: gcs_python_version|int == 3
 #   changed_when: false
