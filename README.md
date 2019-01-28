@@ -9,8 +9,7 @@ Running this will:
 
 - install all dependencies needed for compiling and running GRASS GIS
 - checkout the source code
-- create a virtualenv in the source code directory and install all the python
-    dependencies
+- create a virtualenv directory and install all the python dependencies
 - compile GRASS GIS
 
 **Major points**:
@@ -18,6 +17,22 @@ Running this will:
 - Almost all configuration options are supported (except `OpenDWG` and `OpenCL`).
 - Both Python 2 and 3 are supported (Python 3 is the default).
 - By default it uses trunk but it should work with any 7.x branch.
+
+When to use
+-----------
+
+The main usecase for this role is to kickstart the creation of a GRASS GIS development
+environment.
+
+But, apart from that, you can also use this role in order to deploy a customised GRASS
+GIS Installation on one or more servers.
+
+Requirements
+------------
+
+You need an Ubuntu 18.04 installation; it can be either a Physical machine or a Virtual
+One. You will also need ansible 2.7 which must be installed from a ppa. Instructions
+[here](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html#latest-releases-via-apt-ubuntu)
 
 Quickstart
 ----------
@@ -28,15 +43,19 @@ If you are OK with the defaults, this is all you need to do:
     wget https://git.io/fh8FY -O compile_grass.yml          # donwload the sample playbook-file
     ansible-playbook compile_grass.yml --ask-become-pass    # run the playbook. It will ask you for the sudo password
 
-Install the role
-----------------
+That being said, the defaults are often not what you want so reading the detailed
+instructions would be a good idea.
+
+Detailed Instructions
+---------------------
+
+### Install the role
 
 You can install the role by using:
 
     ansible-galaxy install pmav99.compile_grass
 
-Role Variables
---------------
+### Role Variables
 
 The only mandatory variable is `gcs_builder_username`. This is the user that will own
 the directory with GRASS source and with which the compilation will be done. If you do
@@ -52,7 +71,7 @@ Other useful variables are `gcs_svn_branch_url` which is the URL to the Subversi
 that will be compiled and `gcs_python_version` which specifies the Python version which
 will be used.
 
-### Compilation options
+#### Compilation options
 
 By default, the role uses the same defaults as the `configure` script. You can change
 that though by setting the appropriate variables to `true`. E.g. to enable MySQL and
