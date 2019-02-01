@@ -2,6 +2,8 @@
 # Run compilation inside the virtualenv
 #
 
+set -euo pipefail
+
 cd {{ gcs_source_dir }}/grass
 source venv/bin/activate
 exec make -j{{ [ansible_processor_vcpus, gcs_no_vcpus] | min }} > compilation_output.txt 2>&1
