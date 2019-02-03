@@ -1,0 +1,44 @@
+# An ansible playbook with all the options enabled.
+---
+
+- hosts: 127.0.0.1
+  connection: local
+
+  vars:
+    gcs_account_username: 'builder'
+    gcs_source_dir: '/home/builder/src'
+    gcs_python_version: 2
+    # gcs_svn_branch_url: 'https://svn.osgeo.org/grass/grass/branches/releasebranch_7_6/'
+    gcs_svn_branch_url: 'https://svn.osgeo.org/grass/grass/trunk/'
+
+    gcs_blas_support: true
+    gcs_bzip2_support: true
+    gcs_cxx_support: true
+    gcs_cairo_support: true
+    gcs_fftw_support: true
+    gcs_freetype_support: true
+    gcs_gdal_support: true
+    gcs_geos_support: true
+    gcs_lapack_support: true
+    gcs_liblas_support: true
+    gcs_mysql_support: true
+    gcs_netcdf_support: true
+    gcs_nls_support: true
+    gcs_odbc_support: true
+    gcs_opencl_support: true
+    gcs_opengl_support: true
+    gcs_openmp_support: true
+    gcs_pdal_support: true
+    gcs_png_support: true
+    gcs_pthread_support: true
+    gcs_postgres_support: true
+    gcs_readline_support: true
+    gcs_regex_support: true
+    gcs_sqlite_support: true
+    gcs_tiff_support: true
+    gcs_w11_support: true
+    gcs_zstd_support: true
+
+  roles:
+    - role: pmav99.compile_grass
+      become: true
