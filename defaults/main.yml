@@ -25,7 +25,7 @@ gcs_lapack_support: false
 gcs_liblas_support: false
 gcs_mysql_support: false
 gcs_netcdf_support: false
-gcs_nls_support: false
+gcs_nls_support: true
 gcs_odbc_support: false
 gcs_opencl_support: false
 gcs_opengl_support: true
