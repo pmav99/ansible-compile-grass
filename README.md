@@ -9,7 +9,7 @@ Running this will:
 
 - install all dependencies needed for compiling and running GRASS GIS
 - checkout the source code
-- create a virtualenv directory and install all the python dependencies
+- create a virtualenv directory and install the python dependencies
 - compile GRASS GIS
 
 **Major points**:
@@ -22,28 +22,33 @@ When to use
 -----------
 
 The main usecase is to kickstart the creation of a GRASS GIS development environment.
+That being said, the role can also be used to deploy GRASS GIS on e.g. a cluster of servers.
 
-That being said, the role can also be used to deploy GRASS GIS on e.g. servers. Arguably, there
-are more suitable solutions for such a usecase, but if you don't care too much about
-deployment times, you can still use it.
+Prerequisites
+-------------
 
-Requirements
-------------
+In order to run the role you will need:
 
-You need an Ubuntu 18.04 installation; it can be either a Physical machine or a Virtual
-One. You will also need ansible 2.7 which must be installed from a ppa. Instructions
+- an Ubuntu 18.04 installation; it can be either a Physical machine or a Virtual One.
+- ansible 2.7 which needs to be installed from a ppa. Instructions
 [here](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html#latest-releases-via-apt-ubuntu)
+- `sudo` access (i.e. root privileges) 
 
 Quickstart
 ----------
 
-If you are OK with the defaults (i.e. build as your current user, using Python 3,
-cloning the repo at `~/src/grass`), this is all you need to do:
+If you are OK with the defaults which means:
+
+1. build as your current user,
+2. use Python 3
+3. clone the repo at `~/src/grass`
+
+then this is all you need to do:
 
     curl -Ssl https://raw.githubusercontent.com/pmav99/ansible-role-compile_grass/master/quickstart.sh | bash
 
 Depending on your internet connection and the CPU power of your VM, the whole procedure
-should last 10-30 minutes.
+should last 10-20 minutes.
 
 That's all! :)
 
@@ -66,7 +71,8 @@ You will find these scripts inside the checked out SVN repo.
 So, after you make a change in the source code, all you have to do is to run
 `./do_compile.sh` followed by `./run_grass.sh` or `./run_tests.sh`.
 
-If you don't want to use the scripts, remember to activate the virtualenv:
+If you don't want to use the scripts and you want to manually handle compilation etc,
+just remember to activate the virtualenv:
 
 ```
 source venv/bin/activate
@@ -158,8 +164,8 @@ Then you forgot to use `--ask-become-pass`
 #### Compilation
 
 You will find the compilation output in `compilation_output.txt` inside the repository
-directory. For the record, we had to redirect it to a file because the output surpassed
-the limits imposed by Travis.
+directory. For the record, we had to redirect the output to a file because in case of 
+errors in the compilation, the output surpassed the limits imposed by Travis.
 
 License
 -------
