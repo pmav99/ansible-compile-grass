@@ -39,7 +39,7 @@ gcs_regex_support: true
 gcs_sqlite_support: true
 gcs_tiff_support: true
 gcs_w11_support: false
-gcs_zstd_support: false
+gcs_zstd_support: true
 
 ### Pre-compiled dependencies or not?
 # If you decide that you want to compile the dependencies yourself,
