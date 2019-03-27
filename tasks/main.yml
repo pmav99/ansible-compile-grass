@@ -13,3 +13,10 @@
 - import_tasks: 'dependencies.yml'
 
 - import_tasks: 'compilation.yml'
+
+- name: 'Run tests'
+  command: '{{ gcs_source_dir }}/grass/run_tests.sh'
+  args:
+    chdir: '{{ gcs_source_dir }}/grass/'
+    creates: 'testsuite/examples/testreports/'
+  when: gcs_run_tests
