@@ -209,7 +209,7 @@
 
 - name: 'Check out GRASS source code'
   git:
-    repo: 'https://OSGeo/grass.git'
+    repo: 'https://github.com/OSGeo/grass.git'
     dest: '{{ gcs_source_dir }}/grass/'
     version: '{{ gcs_git_branch }}'
   become_user: '{{ gcs_account_username }}'
