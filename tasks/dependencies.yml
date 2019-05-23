@@ -60,7 +60,7 @@
       - 'libreadline7'
       - 'libboost-thread-dev'
       - 'libboost-program-options-dev'
-      - 'subversion'
+      - 'git'
       - 'wget'
       - 'libavutil-dev'
       - 'ffmpeg2theora'
