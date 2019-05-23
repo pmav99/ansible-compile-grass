@@ -9,8 +9,7 @@ gcs_run_tests: false
 gcs_source_dir: '/usr/local/src'
 
 ### Program versions
-# gcs_svn_branch_url: 'https://svn.osgeo.org/grass/grass/branches/releasebranch_7_6/'
-gcs_svn_branch_url: 'https://svn.osgeo.org/grass/grass/trunk/'
+gcs_git_branch: 'git'
 gcs_python_version: 3
 
 ### GRASS configuration options

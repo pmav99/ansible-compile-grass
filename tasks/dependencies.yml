@@ -208,9 +208,10 @@
   become: true
 
 - name: 'Check out GRASS source code'
-  subversion:
-    repo: '{{ gcs_svn_branch_url }}'
+  git:
+    repo: 'https://OSGeo/grass.git'
     dest: '{{ gcs_source_dir }}/grass/'
+    version: '{{ gcs_git_branch }}'
   become_user: '{{ gcs_account_username }}'
   become: true
 

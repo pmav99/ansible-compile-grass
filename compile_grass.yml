@@ -7,8 +7,7 @@
     gcs_account_username: 'builder'
     gcs_source_dir: '/home/builder/src'
     gcs_python_version: 3
-    # gcs_svn_branch_url: 'https://svn.osgeo.org/grass/grass/branches/releasebranch_7_6/'
-    gcs_svn_branch_url: 'https://svn.osgeo.org/grass/grass/trunk/'
+    gcs_git_branch: 'master'
 
   roles:
     - role: pmav99.compile_grass

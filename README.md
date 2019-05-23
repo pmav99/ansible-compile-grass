@@ -32,7 +32,7 @@ In order to run the role you will need:
 - an Ubuntu 18.04 installation; it can be either a Physical machine or a Virtual One.
 - ansible 2.7 which needs to be installed from a ppa. Instructions
 [here](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html#latest-releases-via-apt-ubuntu)
-- `sudo` access (i.e. root privileges) 
+- `sudo` access (i.e. root privileges)
 
 Quickstart
 ----------
@@ -66,7 +66,7 @@ activation. These scripts are:
     arguments to the grass binary (e.g. `--text`, `--help`, etc)
 - `run_tests.sh` which runs the tests in `testsuite/examples`.
 
-You will find these scripts inside the checked out SVN repo.
+You will find these scripts inside the checked out git repo.
 
 So, after you make a change in the source code, all you have to do is to run
 `./do_compile.sh` followed by `./run_grass.sh` or `./run_tests.sh`.
@@ -99,8 +99,7 @@ file.  This is a sample playbook that that runs the role on the local machine.
         gcs_account_username: 'builder'
         gcs_source_dir: '/home/builder/src'
         gcs_python_version: 3
-        # gcs_svn_branch_url: 'https://svn.osgeo.org/grass/grass/branches/releasebranch_7_6/'
-        gcs_svn_branch_url: 'https://svn.osgeo.org/grass/grass/trunk/'
+        gcs_git_branch: 'master'
 
       roles:
          - role: 'pmav99.compile_grass'
@@ -133,7 +132,7 @@ playbook](https://github.com/pmav99/ansible-role-compile_grass/blob/master/compi
 sets the username to `builder` but you should probably use your main account's username.
 
 You can set the location of the GRASS repository with `gcs_source_dir`. Other useful
-variables are `gcs_svn_branch_url` which is the URL to the Subversion branch that will
+variables are `gcs_git_branch` which is the URL to the Subversion branch that will
 be compiled and `gcs_python_version` which specifies the Python version which will be
 used (defaults to Python 3).
 
@@ -164,7 +163,7 @@ Then you forgot to use `--ask-become-pass`
 #### Compilation
 
 You will find the compilation output in `compilation_output.txt` inside the repository
-directory. For the record, we had to redirect the output to a file because in case of 
+directory. For the record, we had to redirect the output to a file because in case of
 errors in the compilation, the output surpassed the limits imposed by Travis.
 
 License
