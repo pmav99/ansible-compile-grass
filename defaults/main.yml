@@ -9,7 +9,7 @@ gcs_run_tests: false
 gcs_source_dir: '/usr/local/src'
 
 ### Program versions
-gcs_git_branch: 'git'
+gcs_git_branch: 'master'
 gcs_python_version: 3
 
 ### GRASS configuration options
