@@ -5,5 +5,7 @@
 set -euo pipefail
 
 cd {{ gcs_source_dir }}/grass
+set +u
 source venv/bin/activate
+set -u
 exec make -j{{ [ansible_processor_vcpus, gcs_no_vcpus] | min }} > compilation_output.txt 2>&1
