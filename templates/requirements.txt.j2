@@ -1,3 +1,11 @@
+# In order to install PDAL python's bindings for python 3 we need to first compile PDAL from source using Python 3.
+# pdal --global-option=build_ext --global-option="-I/usr/include/pdal"
+pyopengl
+numpy
+matplotlib
+ply
+six
+
 # Until wx gets proper wheels we donwload directly from their site. For more info check:
 # https://wxpython.org/pages/downloads/
 #
@@ -7,9 +15,10 @@
 # wxPython --find-links https://extras.wxpython.org/wxPython4/extras/linux/gtk3/ubuntu-18.04/
 #
 {% if gcs_python_version|int == 2 -%}
-  https://extras.wxpython.org/wxPython4/extras/linux/gtk3/ubuntu-18.04/wxPython-4.0.4-cp27-cp27mu-linux_x86_64.whl
+  https://extras.wxpython.org/wxPython4/extras/linux/gtk3/ubuntu-18.04/wxPython-4.0.7.post2-cp27-cp27mu-linux_x86_64.whl
 {% else -%}
-  https://extras.wxpython.org/wxPython4/extras/linux/gtk3/ubuntu-18.04/wxPython-4.0.4-cp36-cp36m-linux_x86_64.whl
+  #https://extras.wxpython.org/wxPython4/extras/linux/gtk3/ubuntu-18.04/wxPython-4.0.7.post2-cp36-cp36m-linux_x86_64.whl
+  https://extras.wxpython.org/wxPython4/extras/linux/gtk3/ubuntu-18.04/wxPython-4.0.7.post2-cp37-cp37m-linux_x86_64.whl
 {% endif -%}
 
 # In order to properly install GDAL in the virtualenv we need to run this:
@@ -21,11 +30,4 @@
 # For more info check (read the latest comments too!):
 #   https://gist.github.com/cspanring/5680334
 #
-gdal==2.3.2 --global-option=build_ext --global-option="-I/usr/include/gdal"
-
-# In order to install PDAL python's bindings for python 3 we need to first compile PDAL from source using Python 3.
-# pdal --global-option=build_ext --global-option="-I/usr/include/pdal"
-pyopengl
-numpy
-matplotlib
-ply
+gdal==2.4.2 --global-option=build_ext --global-option="-I/usr/include/gdal"
