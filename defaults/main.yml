@@ -13,8 +13,8 @@ gcs_git_branch: 'master'
 gcs_python_version: 3.7
 
 ### GRASS configuration options
-gcs_blas_support: false
-gcs_bzip2_support: false
+gcs_blas_support: true
+gcs_bzip2_support: true
 gcs_cxx_support: true
 gcs_cairo_support: true
 gcs_fftw_support: true
