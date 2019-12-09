@@ -1,0 +1,14 @@
+---
+
+- hosts: 127.0.0.1
+  connection: local
+
+  vars:
+    gcs_account_username: 'builder'
+    gcs_source_dir: '/home/builder/src'
+    gcs_python_version: 2
+    gcs_git_branch: 'master'
+
+  roles:
+    - role: ./
+      become: true
