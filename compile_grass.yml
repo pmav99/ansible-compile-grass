@@ -6,7 +6,7 @@
   vars:
     gcs_account_username: 'builder'
     gcs_source_dir: '/home/builder/src'
-    gcs_python_version: 3
+    gcs_python_version: 3.7
     gcs_git_branch: 'master'
 
   roles:

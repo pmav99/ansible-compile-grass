@@ -10,7 +10,7 @@ gcs_source_dir: '/usr/local/src'
 
 ### Program versions
 gcs_git_branch: 'master'
-gcs_python_version: 3
+gcs_python_version: 3.7
 
 ### GRASS configuration options
 gcs_blas_support: false
