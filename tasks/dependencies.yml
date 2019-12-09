@@ -11,9 +11,9 @@
     repo: 'ppa:deadsnakes/ppa'
   become: true
 
-- name: 'Add ppa:ubuntugis/ubuntugis-unstable'
+- name: 'Add ppa:ubuntugis/ppa'
   apt_repository:
-    repo: 'ppa:ubuntugis/ubuntugis-unstable'
+    repo: 'ppa:ubuntugis/ppa'
   become: true
 
 # This package seems not to exist any more?
