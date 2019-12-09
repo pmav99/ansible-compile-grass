@@ -1,7 +1,8 @@
 ---
 
+repos:
 - repo: https://github.com/ansible/ansible-lint.git
-  sha: v4.0.1
+  rev: v4.2.0
   hooks:
     - id: ansible-lint
       files: \.(yaml|yml)$
