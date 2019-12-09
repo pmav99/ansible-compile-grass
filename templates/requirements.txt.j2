@@ -17,8 +17,11 @@ six
 {% if gcs_python_version|int == 2 -%}
   https://extras.wxpython.org/wxPython4/extras/linux/gtk3/ubuntu-18.04/wxPython-4.0.7.post2-cp27-cp27mu-linux_x86_64.whl
 {% else -%}
-  #https://extras.wxpython.org/wxPython4/extras/linux/gtk3/ubuntu-18.04/wxPython-4.0.7.post2-cp36-cp36m-linux_x86_64.whl
-  https://extras.wxpython.org/wxPython4/extras/linux/gtk3/ubuntu-18.04/wxPython-4.0.7.post2-cp37-cp37m-linux_x86_64.whl
+  {% if gcs_python_version == '3.7' -%}
+    https://extras.wxpython.org/wxPython4/extras/linux/gtk3/ubuntu-18.04/wxPython-4.0.7.post2-cp37-cp37m-linux_x86_64.whl
+  {% else -%}
+    https://extras.wxpython.org/wxPython4/extras/linux/gtk3/ubuntu-18.04/wxPython-4.0.7.post2-cp36-cp36m-linux_x86_64.whl
+  {% endif -%}
 {% endif -%}
 
 # In order to properly install GDAL in the virtualenv we need to run this:
